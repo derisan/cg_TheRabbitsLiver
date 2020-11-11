@@ -41,6 +41,21 @@
     <ClCompile Include="loading_scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="actor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite_component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh_component.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sound_engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h">
@@ -70,6 +85,21 @@
     <ClInclude Include="loading_scene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="actor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="component.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite_component.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh_component.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sound_engine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="asset_to_json.py">
@@ -77,6 +107,30 @@
     </None>
     <None Include="assets.json">
       <Filter>Source Files</Filter>
+    </None>
+    <None Include="Shaders\basicMesh.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\basicMesh.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\bg.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\bg.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\phong.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\phong.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\sprite.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\sprite.vert">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

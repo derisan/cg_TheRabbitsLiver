@@ -1,17 +1,22 @@
 #include "gfw.h"
 
 #include <iostream>
+#include <algorithm>
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
 #include "renderer.h"
 #include "loading_scene.h"
+#include "actor.h"
+#include "mesh_component.h"
+#include "sprite_component.h"
 
 Gfw::Gfw()
 	: mScrWidth{ 0 },
 	mScrHeight{ 0 },
-	mShouldClose{ false }
+	mShouldClose{ false },
+	mIsUpdating{ false }
 {
 
 }
@@ -53,11 +58,17 @@ void Gfw::Run(unsigned char key)
 
 void Gfw::Shutdown()
 {
+	// Delete cached things in renderer
 	Renderer::Get()->Shutdown();
 
-	// Scene map을 순회하면서 scene 삭제
+	// Delete scene
 	for (auto item : mScenesMap)
 		delete item.second;
+
+	// Delete all actors
+	for(auto actors : mActors)
+		while (!actors.empty())
+			delete actors.back();
 }
 
 void Gfw::ProcessInput(unsigned char key)
@@ -65,12 +76,46 @@ void Gfw::ProcessInput(unsigned char key)
 	if (key == 0)
 		return;
 
+	for (auto actors : mActors)
+		for (auto actor : actors)
+		{
+			actor->ProcessInput(key);
+		}
+
 	mScenes.top()->ProcessInput(key);
 }
 
 void Gfw::Update()
 {
-	mScenes.top()->Update();
+	auto curScene = mScenes.top();
+
+	if (curScene->GetState() == Scene::State::kPaused)
+		return;
+	curScene->Update();
+
+	std::vector<Actor*> deads;
+	mIsUpdating = true;
+	for(auto actors : mActors)
+		for (auto actor : actors)
+		{
+			actor->Update();
+			if (actor->GetState() == Actor::State::kDead)
+				deads.emplace_back(actor);
+		}
+	mIsUpdating = false;
+
+	for (auto pending : mPendingActors)
+	{
+		pending->ComputeWorldTransform();
+		auto layer = pending->GetLayer();
+		mActors[layer].emplace_back(pending);
+	}
+	mPendingActors.clear();
+
+	for (auto actor : deads)
+	{
+		delete actor;
+	}
 }
 
 void Gfw::Draw()
@@ -123,3 +168,52 @@ void Gfw::PopScene()
 	}
 }
 
+void Gfw::AddActorAt(Actor* actor, int layer)
+{
+	if (mIsUpdating)
+		mPendingActors.emplace_back(actor);
+	else
+		mActors[layer].emplace_back(actor);
+}
+
+void Gfw::RemoveActorAt(Actor* actor, int layer)
+{
+	auto iter = std::find(std::begin(mPendingActors), std::end(mPendingActors), actor);
+	if (iter != std::end(mPendingActors))
+		mPendingActors.erase(iter);
+
+	iter = std::find(std::begin(mActors[layer]), std::end(mActors[layer]), actor);
+	if (iter != std::end(mActors[layer]))
+		mActors[layer].erase(iter);
+}
+
+void Gfw::RemoveAll()
+{
+	for (auto actors : mActors)
+		while (!actors.empty())
+			delete actors.back();
+}
+
+void Gfw::AddMesh(MeshComponent* mesh)
+{
+	mMeshes.emplace_back(mesh);
+}
+
+void Gfw::RemoveMesh(MeshComponent* mesh)
+{
+	auto iter = std::find(std::begin(mMeshes), std::end(mMeshes), mesh);
+	if (iter != std::end(mMeshes))
+		mMeshes.erase(iter);
+}
+
+void Gfw::AddSprite(SpriteComponent* sprite)
+{
+	mSprites.emplace_back(sprite);
+}
+
+void Gfw::RemoveSprite(SpriteComponent* sprite)
+{
+	auto iter = std::find(std::begin(mSprites), std::end(mSprites), sprite);
+	if (iter != std::end(mSprites))
+		mSprites.erase(iter);
+}

@@ -10,9 +10,16 @@
 #include <rapidjson/document.h>
 
 #include "gfw.h"
+#include "renderer.h"
+#include "actor.h"
+#include "sprite_component.h"
+#include "sound_engine.h"
+#include "shader.h"
 
 LoadingScene::LoadingScene(Gfw* gfw)
 	: Scene{ gfw },
+	mRenderer{ nullptr },
+	mSpriteShader{ nullptr },
 	mMeshIdx{ 0 },
 	mSoundIdx{ 0 },
 	mImgIdx{ 0 },
@@ -20,7 +27,8 @@ LoadingScene::LoadingScene(Gfw* gfw)
 	mTotalFiles{ 0 },
 	mElapsed{ 0.0f }
 {
-
+	mRenderer = Renderer::Get();
+	mSpriteShader = mRenderer->GetShader("sprite");
 }
 
 void LoadingScene::Enter()
@@ -36,7 +44,7 @@ void LoadingScene::Enter()
 
 void LoadingScene::Exit()
 {
-	
+	mGfw->RemoveAll();
 }
 
 void LoadingScene::ProcessInput(unsigned char key)
@@ -48,6 +56,32 @@ void LoadingScene::ProcessInput(unsigned char key)
 void LoadingScene::Update()
 {
 	mElapsed = mGfw->dt;
+
+	for (; mCurIdx < mMeshIdx + mSoundIdx + mImgIdx; ++mCurIdx)
+	{
+		auto bar = new Actor{ mGfw, 0 };
+		auto sc = new SpriteComponent{ bar, "Assets/white.png" };
+		bar->SetScale(1.8f / mTotalFiles);
+	}
+
+	if (mMeshIdx < mMeshFiles.size())
+	{
+		mRenderer->GetMesh(mMeshFiles[mMeshIdx]);
+		std::cout << "Read mesh: " << mMeshFiles[mMeshIdx++] << std::endl;
+	}
+	else if (mSoundIdx < mSoundFiles.size())
+	{
+		SoundEngine::Get()->Create("Assets/" + mSoundFiles[mSoundIdx], mSoundFiles[mSoundIdx]);
+		std::cout << "Create music: " << mSoundFiles[mSoundIdx++] << std::endl;
+	}
+	else if (mImgIdx < mImgFiles.size())
+	{
+		mRenderer->GetTexture(mImgFiles[mImgIdx]);
+		std::cout << "Read texture: " << mImgFiles[mImgIdx++] << std::endl;
+	}
+	else if (mElapsed > 3.0f)
+		//mGfw->ChangeScene("start");
+		std::cout << "Done" << std::endl;
 	
 }
 
@@ -56,6 +90,16 @@ void LoadingScene::Draw()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// Enable alpha blending
+	glEnable(GL_BLEND);
+	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+
+	mSpriteShader->SetActive();
+	auto sprites = mGfw->GetSprites();
+	for (auto sprite : sprites)
+		sprite->Draw(mSpriteShader);
+		
 	glutSwapBuffers();
 }
 

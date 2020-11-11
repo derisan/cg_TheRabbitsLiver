@@ -88,10 +88,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,30 +143,48 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="aabb.cpp" />
+    <ClCompile Include="actor.cpp" />
+    <ClCompile Include="component.cpp" />
     <ClCompile Include="gfw.cpp" />
     <ClCompile Include="loading_scene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh.cpp" />
+    <ClCompile Include="mesh_component.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="sound_engine.cpp" />
+    <ClCompile Include="sprite_component.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="vertexarray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h" />
+    <ClInclude Include="actor.h" />
+    <ClInclude Include="component.h" />
     <ClInclude Include="gfw.h" />
     <ClInclude Include="loading_scene.h" />
     <ClInclude Include="mesh.h" />
+    <ClInclude Include="mesh_component.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="sound_engine.h" />
+    <ClInclude Include="sprite_component.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="vertexarray.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets.json" />
     <None Include="asset_to_json.py" />
+    <None Include="Shaders\basicMesh.frag" />
+    <None Include="Shaders\basicMesh.vert" />
+    <None Include="Shaders\bg.frag" />
+    <None Include="Shaders\bg.vert" />
+    <None Include="Shaders\phong.frag" />
+    <None Include="Shaders\phong.vert" />
+    <None Include="Shaders\sprite.frag" />
+    <None Include="Shaders\sprite.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
