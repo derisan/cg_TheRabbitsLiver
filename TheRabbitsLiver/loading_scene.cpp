@@ -55,13 +55,14 @@ void LoadingScene::ProcessInput(unsigned char key)
 
 void LoadingScene::Update()
 {
-	mElapsed = mGfw->dt;
+	mElapsed += mGfw->dt;
 
 	for (; mCurIdx < mMeshIdx + mSoundIdx + mImgIdx; ++mCurIdx)
 	{
 		auto bar = new Actor{ mGfw, 0 };
 		auto sc = new SpriteComponent{ bar, "Assets/white.png" };
 		bar->SetScale(1.8f / mTotalFiles);
+		bar->SetPosition(glm::vec3{ -0.9f + (1.8f / mTotalFiles) * mCurIdx, -0.2f, 0.0f });
 	}
 
 	if (mMeshIdx < mMeshFiles.size())
@@ -78,9 +79,9 @@ void LoadingScene::Update()
 	{
 		mRenderer->GetTexture(mImgFiles[mImgIdx]);
 		std::cout << "Read texture: " << mImgFiles[mImgIdx++] << std::endl;
+		std::cout << mImgIdx << std::endl;
 	}
 	else if (mElapsed > 3.0f)
-		//mGfw->ChangeScene("start");
 		std::cout << "Done" << std::endl;
 	
 }

@@ -13,7 +13,8 @@
 #include "sprite_component.h"
 
 Gfw::Gfw()
-	: mScrWidth{ 0 },
+	: mActors(4),
+	mScrWidth{ 0 },
 	mScrHeight{ 0 },
 	mShouldClose{ false },
 	mIsUpdating{ false }
