@@ -38,6 +38,8 @@ void MainScene::ProcessInput(unsigned char key)
 {
 	if (key == 27)
 		mGfw->ChangeScene("title");
+	else if (key == 13)
+		mGfw->ChangeScene("dead");
 	else if (key == 'p' || key == 'P')
 		Pause();
 	else if (key == 'r' || key == 'R')

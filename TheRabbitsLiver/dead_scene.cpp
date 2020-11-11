@@ -1,4 +1,4 @@
-#include "title_scene.h"
+#include "dead_scene.h"
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -10,7 +10,7 @@
 #include "sound_engine.h"
 #include "shader.h"
 
-TitleScene::TitleScene(Gfw* gfw)
+DeadScene::DeadScene(Gfw* gfw)
 	: Scene{ gfw },
 	mRenderer{ nullptr },
 	mSpriteShader{ nullptr }
@@ -19,24 +19,25 @@ TitleScene::TitleScene(Gfw* gfw)
 	mSpriteShader = mRenderer->GetShader("sprite");
 }
 
-void TitleScene::Enter()
+void DeadScene::Enter()
 {
 	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
-	
-	SoundEngine::Get()->Play("happy.mp3");
 
-	auto img = new Actor{ mGfw, mGfw->kDefault };
-	auto sc = new SpriteComponent{ img, "Assets/pressenter.jpg" };
+	SoundEngine::Get()->Play("gameover.wav");
+
+	auto img = new Actor{ mGfw };
+	auto sc = new SpriteComponent{ img, "Assets/deadscreen.png" };
+	img->SetScale(2.0f);
 }
 
-void TitleScene::Exit()
+void DeadScene::Exit()
 {
-	SoundEngine::Get()->Stop("happy.mp3");
+	SoundEngine::Get()->Stop("gameover.wav");
 
 	mGfw->RemoveAll();
 }
 
-void TitleScene::ProcessInput(unsigned char key)
+void DeadScene::ProcessInput(unsigned char key)
 {
 	if (key == 27)
 		mGfw->PopScene();
@@ -44,12 +45,12 @@ void TitleScene::ProcessInput(unsigned char key)
 		mGfw->ChangeScene("main");
 }
 
-void TitleScene::Update()
+void DeadScene::Update()
 {
 
 }
 
-void TitleScene::Draw()
+void DeadScene::Draw()
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);

@@ -145,6 +145,7 @@
     <ClCompile Include="aabb.cpp" />
     <ClCompile Include="actor.cpp" />
     <ClCompile Include="component.cpp" />
+    <ClCompile Include="dead_scene.cpp" />
     <ClCompile Include="gfw.cpp" />
     <ClCompile Include="loading_scene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="aabb.h" />
     <ClInclude Include="actor.h" />
     <ClInclude Include="component.h" />
+    <ClInclude Include="dead_scene.h" />
     <ClInclude Include="gfw.h" />
     <ClInclude Include="loading_scene.h" />
     <ClInclude Include="main_scene.h" />
