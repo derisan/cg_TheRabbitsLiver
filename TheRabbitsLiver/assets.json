@@ -1,0 +1,65 @@
+{
+  "gpmesh": [
+    "basic_tree.gpmesh",
+    "bird.gpmesh",
+    "bunny.gpmesh",
+    "bus.gpmesh",
+    "car.gpmesh",
+    "carrot.gpmesh",
+    "earth.gpmesh",
+    "fireball.gpmesh",
+    "grass.gpmesh",
+    "log.gpmesh",
+    "penguin.gpmesh",
+    "pumpkin.gpmesh",
+    "railroad.gpmesh",
+    "road.gpmesh",
+    "sword.gpmesh",
+    "truck.gpmesh",
+    "water.gpmesh"
+  ],
+  "png": [
+    "basic_tree.png",
+    "bird.png",
+    "bunny.png",
+    "bus.png",
+    "car.png",
+    "carrot.png",
+    "deadscreen.png",
+    "fireball.png",
+    "grass.png",
+    "life_carrot.png",
+    "life_heart.png",
+    "loading.png",
+    "log.png",
+    "penguin.png",
+    "pumpkin.png",
+    "railroad.png",
+    "road.png",
+    "sword.png",
+    "truck.png",
+    "water.png",
+    "white.png",
+    "youwin.png"
+  ],
+  "mp3": [
+    "chicken.mp3",
+    "happy.mp3",
+    "owl.mp3",
+    "victory.mp3"
+  ],
+  "wav": [
+    "DragonHawkDeath1.wav",
+    "gameover.wav",
+    "jump.wav",
+    "penguin_boom.wav",
+    "penguin_drop.wav",
+    "slashing.wav"
+  ],
+  "jpg": [
+    "earth.jpg",
+    "moon.jpg",
+    "pressenter.jpg",
+    "space.jpg"
+  ]
+}
