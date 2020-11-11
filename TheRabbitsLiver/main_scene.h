@@ -16,5 +16,6 @@ public:
 
 private:
 	class Renderer* mRenderer;
+	class Shader* mSpriteShader;
 };
 

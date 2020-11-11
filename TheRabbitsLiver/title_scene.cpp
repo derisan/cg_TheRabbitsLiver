@@ -25,6 +25,8 @@ void TitleScene::Enter()
 
 	auto bg = new Actor{ mGfw, mGfw->kDefault };
 	auto sc = new SpriteComponent{ bg, "Assets/pressenter.jpg" };
+
+	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
 }
 
 void TitleScene::Exit()

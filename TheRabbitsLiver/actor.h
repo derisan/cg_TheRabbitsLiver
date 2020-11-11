@@ -16,7 +16,7 @@ public:
 		kDead
 	};
 
-	Actor(Gfw* Gfw, Gfw::Layer layer);
+	Actor(Gfw* Gfw, Gfw::Layer layer = Gfw::Layer::kDefault);
 	virtual ~Actor();
 
 	void Update();
