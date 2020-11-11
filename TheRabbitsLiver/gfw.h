@@ -15,7 +15,7 @@ public:
 		kVehicle,
 		kPlane,
 		kTree,
-		kSprite
+		kDefault
 	};
 
 	Gfw();
@@ -29,7 +29,7 @@ public:
 	void PushScene(const std::string& scene);
 	void PopScene();
 
-	void AddActorAt(class Actor* actor, Layer layer);
+	void AddActorAt(class Actor* actor, Layer layer = Layer::kDefault);
 	void RemoveActorAt(class Actor* actor, Layer layer);
 	void RemoveAll();
 	void AddMesh(class MeshComponent* mesh);

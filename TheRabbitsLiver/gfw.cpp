@@ -9,6 +9,7 @@
 #include "renderer.h"
 #include "loading_scene.h"
 #include "title_scene.h"
+#include "main_scene.h"
 #include "actor.h"
 #include "mesh_component.h"
 #include "sprite_component.h"
@@ -43,6 +44,7 @@ bool Gfw::Init(int* argc, char** argv, int w, int h)
 
 	mScenesMap.emplace("loading", new LoadingScene{ this });
 	mScenesMap.emplace("title", new TitleScene{ this });
+	mScenesMap.emplace("main", new MainScene{ this });
 
 	PushScene("loading");
 

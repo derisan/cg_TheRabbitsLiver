@@ -59,6 +59,9 @@
     <ClCompile Include="title_scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h">
@@ -104,6 +107,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="title_scene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_scene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

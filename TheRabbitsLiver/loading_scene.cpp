@@ -59,7 +59,7 @@ void LoadingScene::Update()
 
 	for (; mCurIdx < mMeshIdx + mSoundIdx + mImgIdx; ++mCurIdx)
 	{
-		auto bar = new Actor{ mGfw, mGfw->kSprite };
+		auto bar = new Actor{ mGfw, mGfw->kDefault };
 		auto sc = new SpriteComponent{ bar, "Assets/white.png" };
 		bar->SetScale(1.8f / mTotalFiles);
 		bar->SetPosition(glm::vec3{ -0.9f + (1.8f / mTotalFiles) * mCurIdx, -0.2f, 0.0f });

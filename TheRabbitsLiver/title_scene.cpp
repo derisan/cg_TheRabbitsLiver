@@ -1,6 +1,5 @@
 #include "title_scene.h"
 
-
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
@@ -24,9 +23,8 @@ void TitleScene::Enter()
 {
 	SoundEngine::Get()->Play("happy.mp3");
 
-	auto bg = new Actor{ mGfw, mGfw->kSprite };
+	auto bg = new Actor{ mGfw, mGfw->kDefault };
 	auto sc = new SpriteComponent{ bg, "Assets/pressenter.jpg" };
-	bg->SetScale(2.0f);
 }
 
 void TitleScene::Exit()
@@ -41,8 +39,7 @@ void TitleScene::ProcessInput(unsigned char key)
 	if (key == 27)
 		mGfw->PopScene();
 	else if (key == 13)
-		//mGfw->ChangeScene("main");
-		;
+		mGfw->ChangeScene("main");
 }
 
 void TitleScene::Update()
@@ -60,6 +57,7 @@ void TitleScene::Draw()
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
+	// Draw all sprites
 	mSpriteShader->SetActive();
 	auto sprites = mGfw->GetSprites();
 	for (auto sprite : sprites)
