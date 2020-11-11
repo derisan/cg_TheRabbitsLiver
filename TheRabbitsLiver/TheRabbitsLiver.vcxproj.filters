@@ -56,6 +56,9 @@
     <ClCompile Include="sound_engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="title_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h">
@@ -98,6 +101,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="sound_engine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="title_scene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

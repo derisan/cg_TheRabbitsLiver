@@ -8,6 +8,7 @@
 
 #include "renderer.h"
 #include "loading_scene.h"
+#include "title_scene.h"
 #include "actor.h"
 #include "mesh_component.h"
 #include "sprite_component.h"
@@ -41,6 +42,7 @@ bool Gfw::Init(int* argc, char** argv, int w, int h)
 	}
 
 	mScenesMap.emplace("loading", new LoadingScene{ this });
+	mScenesMap.emplace("title", new TitleScene{ this });
 
 	PushScene("loading");
 
@@ -128,7 +130,7 @@ void Gfw::ChangeScene(const std::string& scene)
 	if (iter == std::end(mScenesMap))
 	{
 		std::cout << "There's no scene named " << scene << std::endl;
-		return;
+		exit(EXIT_FAILURE);
 	}
 
 	if (mScenes.size() > 0)
@@ -146,7 +148,7 @@ void Gfw::PushScene(const std::string& scene)
 	if (iter == std::end(mScenesMap))
 	{
 		std::cout << "There's no scene named " << scene << std::endl;
-		return;
+		exit(EXIT_FAILURE);
 	}
 
 	if (mScenes.size() > 0)

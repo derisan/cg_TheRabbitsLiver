@@ -81,8 +81,7 @@ void LoadingScene::Update()
 		std::cout << "Read texture: " << mImgFiles[mImgIdx++] << std::endl;
 	}
 	else if (mElapsed > 3.0f)
-		std::cout << "Done" << std::endl;
-	
+		mGfw->ChangeScene("title");
 }
 
 void LoadingScene::Draw()

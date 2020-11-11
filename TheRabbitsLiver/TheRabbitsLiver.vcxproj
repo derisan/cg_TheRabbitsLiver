@@ -156,6 +156,7 @@
     <ClCompile Include="sound_engine.cpp" />
     <ClCompile Include="sprite_component.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="title_scene.cpp" />
     <ClCompile Include="vertexarray.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="sound_engine.h" />
     <ClInclude Include="sprite_component.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="title_scene.h" />
     <ClInclude Include="vertexarray.h" />
   </ItemGroup>
   <ItemGroup>
