@@ -3,10 +3,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
-#include "gfw.h"
 #include "component.h"
 
-Actor::Actor(Gfw* gfw, int layer)
+Actor::Actor(Gfw* gfw, Gfw::Layer layer)
 	: mGfw{ gfw },
 	mState{ State::kActive },
 	mWorldTransform{ 1.0f },

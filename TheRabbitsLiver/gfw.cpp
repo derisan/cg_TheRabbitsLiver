@@ -13,7 +13,7 @@
 #include "sprite_component.h"
 
 Gfw::Gfw()
-	: mActors(4),
+	: mActors( 5 ),
 	mScrWidth{ 0 },
 	mScrHeight{ 0 },
 	mShouldClose{ false },
@@ -167,7 +167,7 @@ void Gfw::PopScene()
 	}
 }
 
-void Gfw::AddActorAt(Actor* actor, int layer)
+void Gfw::AddActorAt(Actor* actor, Layer layer)
 {
 	if (mIsUpdating)
 		mPendingActors.emplace_back(actor);
@@ -175,7 +175,7 @@ void Gfw::AddActorAt(Actor* actor, int layer)
 		mActors[layer].emplace_back(actor);
 }
 
-void Gfw::RemoveActorAt(Actor* actor, int layer)
+void Gfw::RemoveActorAt(Actor* actor, Layer layer)
 {
 	auto iter = std::find(std::begin(mPendingActors), std::end(mPendingActors), actor);
 	if (iter != std::end(mPendingActors))

@@ -14,7 +14,8 @@ public:
 		kPlayer,
 		kVehicle,
 		kPlane,
-		kTree
+		kTree,
+		kSprite
 	};
 
 	Gfw();
@@ -28,8 +29,8 @@ public:
 	void PushScene(const std::string& scene);
 	void PopScene();
 
-	void AddActorAt(class Actor* actor, int layer);
-	void RemoveActorAt(class Actor* actor, int layer);
+	void AddActorAt(class Actor* actor, Layer layer);
+	void RemoveActorAt(class Actor* actor, Layer layer);
 	void RemoveAll();
 	void AddMesh(class MeshComponent* mesh);
 	void RemoveMesh(class MeshComponent* mesh);
@@ -41,7 +42,7 @@ public:
 	int GetScrWidth() const { return mScrWidth; }
 	int GetScrHeight() const { return mScrHeight; }
 
-	std::vector<class Actor*>& GetActorsAt(int layer) { return mActors[layer]; }
+	std::vector<class Actor*>& GetActorsAt(Layer layer) { return mActors[layer]; }
 	std::vector<class MeshComponent*>& GetMeshes() { return mMeshes; }
 	std::vector<class SpriteComponent*> GetSprites() { return mSprites; }
 

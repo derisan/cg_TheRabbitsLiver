@@ -4,6 +4,8 @@
 
 #include <glm/glm.hpp>
 
+#include "gfw.h"
+
 class Actor
 {
 public:
@@ -14,7 +16,7 @@ public:
 		kDead
 	};
 
-	Actor(class Gfw* Gfw, int layer);
+	Actor(Gfw* Gfw, Gfw::Layer layer);
 	virtual ~Actor();
 
 	void Update();
@@ -61,6 +63,6 @@ private:
 	float mRotation;
 
 	bool mRecomputeWorldTransform;
-	int mLayer;
+	Gfw::Layer mLayer;
 };
 
