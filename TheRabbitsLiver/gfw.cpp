@@ -67,9 +67,7 @@ void Gfw::Shutdown()
 		delete item.second;
 
 	// Delete all actors
-	for(auto actors : mActors)
-		while (!actors.empty())
-			delete actors.back();
+	RemoveAll();
 }
 
 void Gfw::ProcessInput(unsigned char key)
@@ -182,17 +180,20 @@ void Gfw::RemoveActorAt(Actor* actor, int layer)
 	auto iter = std::find(std::begin(mPendingActors), std::end(mPendingActors), actor);
 	if (iter != std::end(mPendingActors))
 		mPendingActors.erase(iter);
-
+	
+	static int times{ 0 };
 	iter = std::find(std::begin(mActors[layer]), std::end(mActors[layer]), actor);
 	if (iter != std::end(mActors[layer]))
+	{
 		mActors[layer].erase(iter);
+	}
 }
 
 void Gfw::RemoveAll()
 {
 	for (auto actors : mActors)
-		while (!actors.empty())
-			delete actors.back();
+		for (auto actor : actors)
+			delete actor;
 }
 
 void Gfw::AddMesh(MeshComponent* mesh)

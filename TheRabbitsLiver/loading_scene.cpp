@@ -79,7 +79,6 @@ void LoadingScene::Update()
 	{
 		mRenderer->GetTexture(mImgFiles[mImgIdx]);
 		std::cout << "Read texture: " << mImgFiles[mImgIdx++] << std::endl;
-		std::cout << mImgIdx << std::endl;
 	}
 	else if (mElapsed > 3.0f)
 		std::cout << "Done" << std::endl;
