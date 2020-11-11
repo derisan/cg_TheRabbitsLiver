@@ -65,6 +65,9 @@
     <ClCompile Include="dead_scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="winning_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h">
@@ -116,6 +119,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="dead_scene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="winning_scene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

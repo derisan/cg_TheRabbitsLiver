@@ -160,6 +160,7 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="title_scene.cpp" />
     <ClCompile Include="vertexarray.cpp" />
+    <ClCompile Include="winning_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="title_scene.h" />
     <ClInclude Include="vertexarray.h" />
+    <ClInclude Include="winning_scene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets.json" />

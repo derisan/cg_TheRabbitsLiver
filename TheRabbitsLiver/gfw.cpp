@@ -11,6 +11,7 @@
 #include "title_scene.h"
 #include "main_scene.h"
 #include "dead_scene.h"
+#include "winning_scene.h"
 #include "actor.h"
 #include "mesh_component.h"
 #include "sprite_component.h"
@@ -47,6 +48,7 @@ bool Gfw::Init(int* argc, char** argv, int w, int h)
 	mScenesMap.emplace("title", new TitleScene{ this });
 	mScenesMap.emplace("main", new MainScene{ this });
 	mScenesMap.emplace("dead", new DeadScene{ this });
+	mScenesMap.emplace("winning", new WinningScene{ this });
 
 	PushScene("loading");
 

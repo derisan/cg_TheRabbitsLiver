@@ -40,6 +40,8 @@ void MainScene::ProcessInput(unsigned char key)
 		mGfw->ChangeScene("title");
 	else if (key == 13)
 		mGfw->ChangeScene("dead");
+	else if (key == 't')
+		mGfw->ChangeScene("winning");
 	else if (key == 'p' || key == 'P')
 		Pause();
 	else if (key == 'r' || key == 'R')
