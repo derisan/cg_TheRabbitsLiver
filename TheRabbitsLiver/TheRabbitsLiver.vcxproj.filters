@@ -80,6 +80,9 @@
     <ClCompile Include="plane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vehicle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h">
@@ -146,6 +149,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="plane.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vehicle.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
