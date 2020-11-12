@@ -39,6 +39,59 @@ void Player::UpdateActor()
 
 void Player::ActorInput(unsigned char key)
 {
+	if (mType == PlayerType::kP1)
+		PlayerOneInput(key);
+	else
+		PlayerTwoInput(key);
+}
 
+void Player::PlayerOneInput(unsigned char key)
+{
+	auto pos = GetPosition();
+	const auto& forward = GetForward();
+	const auto& right = GetRight();
+
+	switch (key)
+	{
+		case 'w': case 'W':
+			pos += forward * 2.0f;
+			break;
+		case 's': case 'S':
+			pos -= forward * 2.0f;
+			break;
+		case 'a': case 'A':
+			pos -= right * 1.2f;
+			break;
+		case 'd': case 'D':
+			pos += right * 1.2f;
+			break;
+	}
+
+	SetPosition(pos);
+}
+
+void Player::PlayerTwoInput(unsigned char key)
+{
+	auto pos = GetPosition();
+	const auto& forward = GetForward();
+	const auto& right = GetRight();
+
+	switch (key)
+	{
+		case 'i': case 'I':
+			pos += forward * 2.0f;
+			break;
+		case 'k': case 'K':
+			pos -= forward * 2.0f;
+			break;
+		case 'j': case 'J':
+			pos -= right * 1.2f;
+			break;
+		case 'l': case 'L':
+			pos += right * 1.2f;
+			break;
+	}
+
+	SetPosition(pos);
 }
 

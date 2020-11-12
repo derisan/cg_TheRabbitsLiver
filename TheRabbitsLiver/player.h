@@ -14,7 +14,10 @@ public:
 
     void UpdateActor() override;
     void ActorInput(unsigned char key) override;
-    
+
+    void PlayerOneInput(unsigned char key);
+    void PlayerTwoInput(unsigned char key);
+
     // Getters
     class BoxComponent* GetBox() const { return mBox; }
     class CameraComponent* GetCamera() const { return mCamera; }
