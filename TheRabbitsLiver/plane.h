@@ -26,6 +26,9 @@ public:
     class BoxComponent* GetBox() const { return mBox; }
     PlaneType GetType() const { return mType; }
 
+    // Setters
+    void SetDisabled(bool value) { mDisabled = value; }
+
 private:
     class BoxComponent* mBox;
 
@@ -34,5 +37,6 @@ private:
 
     float mCooldown;
     int mLeftOrRight;
+    bool mDisabled;
 };
 

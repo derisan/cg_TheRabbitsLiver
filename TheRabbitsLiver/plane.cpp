@@ -11,7 +11,8 @@ Plane::Plane(Gfw* gfw, PlaneType type, int curStage, bool right, Gfw::Layer laye
 	mType{ type },
 	mVehicleType{ Vehicle::kCar },
 	mCooldown{ 0.0f },
-	mLeftOrRight{ Random::GetChoice(-1, 1) }
+	mLeftOrRight{ Random::GetChoice(-1, 1) },
+	mDisabled{ false }
 {
 	std::string file;
 
@@ -54,7 +55,7 @@ void Plane::UpdateActor()
 	Actor::UpdateActor();
 
 	mCooldown -= mGfw->dt;
-	if (mCooldown < 0)
+	if (!mDisabled && mCooldown < 0)
 		GenerateVehicle();
 }
 

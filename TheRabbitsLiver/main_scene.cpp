@@ -137,7 +137,8 @@ void MainScene::CreatePlane()
 	auto maxZ = GetMaxZ();
 	for (; mCurStage < -maxZ + 10; ++mCurStage)
 	{
-		new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage };
+		auto plane = new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage };
+		plane->SetDisabled(true);
 		new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage, true };
 	}
 }
