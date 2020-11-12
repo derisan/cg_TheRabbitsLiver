@@ -33,7 +33,7 @@ void TitleScene::Exit()
 {
 	SoundEngine::Get()->Stop("happy.mp3");
 
-	mGfw->RemoveAll();
+	mGfw->RemoveAllActors();
 }
 
 void TitleScene::ProcessInput(unsigned char key)

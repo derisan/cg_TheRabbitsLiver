@@ -34,7 +34,7 @@ void WinningScene::Exit()
 {
 	SoundEngine::Get()->Stop("victory.mp3");
 
-	mGfw->RemoveAll();
+	mGfw->RemoveAllActors();
 }
 
 void WinningScene::ProcessInput(unsigned char key)

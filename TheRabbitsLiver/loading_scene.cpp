@@ -44,7 +44,7 @@ void LoadingScene::Enter()
 
 void LoadingScene::Exit()
 {
-	mGfw->RemoveAll();
+	mGfw->RemoveAllActors();
 }
 
 void LoadingScene::ProcessInput(unsigned char key)

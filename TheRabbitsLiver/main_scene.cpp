@@ -58,7 +58,7 @@ void MainScene::Exit()
 {
 	SoundEngine::Get()->Stop("BlueWorld.mp3");
 
-	mGfw->RemoveAll();
+	mGfw->RemoveAllActors();
 }
 
 void MainScene::ProcessInput(unsigned char key)
@@ -127,9 +127,7 @@ void MainScene::LoadData()
 {
 	mPlayer1 = new Player{ mGfw, Player::kP1 };
 	mPlayer2 = new Player{ mGfw, Player::kP2 };
-	mPlayer1->SetPosition(glm::vec3{ -12.0f, 0.0f, 0.0f });
-	mPlayer2->SetPosition(glm::vec3{ 12.0f, 0.0f, 0.0f });
-
+	
 	// Read stage from file
 	std::ifstream file{ "Assets/stage.txt" };
 	if (!file.is_open())

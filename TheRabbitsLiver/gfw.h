@@ -31,7 +31,7 @@ public:
 
 	void AddActorAt(class Actor* actor, Layer layer);
 	void RemoveActorAt(class Actor* actor, Layer layer);
-	void RemoveAll();
+	void RemoveAllActors();
 	void AddMesh(class MeshComponent* mesh);
 	void RemoveMesh(class MeshComponent* mesh);
 	void AddSprite(class SpriteComponent* sprite);

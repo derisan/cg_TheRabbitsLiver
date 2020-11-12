@@ -32,7 +32,7 @@ void DeadScene::Exit()
 {
 	SoundEngine::Get()->Stop("gameover.wav");
 
-	mGfw->RemoveAll();
+	mGfw->RemoveAllActors();
 }
 
 void DeadScene::ProcessInput(unsigned char key)

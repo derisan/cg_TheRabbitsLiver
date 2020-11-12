@@ -78,7 +78,7 @@ void Gfw::Shutdown()
 		delete item.second;
 
 	// Delete all actors
-	RemoveAll();
+	RemoveAllActors();
 }
 
 void Gfw::ProcessInput(unsigned char key)
@@ -206,7 +206,7 @@ void Gfw::RemoveActorAt(Actor* actor, Layer layer)
 	}
 }
 
-void Gfw::RemoveAll()
+void Gfw::RemoveAllActors()
 {
 	for (auto actors : mActors)
 	{
