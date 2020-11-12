@@ -56,6 +56,7 @@ void DeadScene::Draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Enable alpha blending
+	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
