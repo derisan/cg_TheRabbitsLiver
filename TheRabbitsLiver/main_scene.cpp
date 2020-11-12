@@ -198,7 +198,7 @@ void MainScene::CollisionCheck()
 		}
 	}
 
-	// Collision check with planes
+	// Collision check with water planes
 	for (auto plane : mGfw->GetActorsAt(Gfw::Layer::kPlane))
 	{
 		if (plane->GetState() != Actor::State::kActive)
@@ -214,22 +214,14 @@ void MainScene::CollisionCheck()
 			mPlayer2->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
 			continue;
 		}
-
-		const auto& planeBox = pp->GetBox()->GetWorldBox();
-		if (Intersects(p1Box, planeBox))
-		{
-			if (pp->GetType() != Plane::kWater)
-			{
-
-			}
-		}
 		
-		if (Intersects(p2Box, planeBox))
-		{
-			if (pp->GetType() != Plane::kWater)
-			{
+		if (pp->GetType() != Plane::PlaneType::kWater)
+			continue;
 
-			}
-		}
+		if (Intersects(p1Box, pp))	
+			mPlayer1->Fall();
+		
+		if (Intersects(p2Box, pp))
+			mPlayer2->Fall();
 	}
 }

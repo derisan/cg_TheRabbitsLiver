@@ -14,9 +14,11 @@ public:
 
     void UpdateActor() override;
     void ActorInput(unsigned char key) override;
-
     void PlayerOneInput(unsigned char key);
     void PlayerTwoInput(unsigned char key);
+
+    // Collision process
+    void Fall();
 
     // Getters
     class BoxComponent* GetBox() const { return mBox; }

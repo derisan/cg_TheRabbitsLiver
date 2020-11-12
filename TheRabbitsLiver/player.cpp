@@ -109,3 +109,14 @@ void Player::PlayerTwoInput(unsigned char key)
 	SetPosition(pos);
 }
 
+void Player::Fall()
+{
+	auto pos = GetPosition();
+	if (pos.y < -10.0f)
+		return;
+
+	pos.y -= 0.5f;
+
+	SetPosition(pos);
+}
+
