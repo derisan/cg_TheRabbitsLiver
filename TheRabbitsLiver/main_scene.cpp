@@ -17,8 +17,10 @@
 #include "shader.h"
 #include "player.h"
 #include "plane.h"
+#include "vehicle.h"
 #include "camera_component.h"
 #include "mesh_component.h"
+#include "box_component.h"
 
 MainScene::MainScene(Gfw* gfw)
 	: Scene{ gfw },
@@ -75,6 +77,7 @@ void MainScene::Update()
 		CreatePlane();
 
 	RemoveBehind();
+	CollisionCheck();
 }
 
 void MainScene::Draw()
@@ -182,4 +185,39 @@ float MainScene::GetMaxZ()
 	auto max = glm::max(p1Pos.z, p2Pos.z);
 
 	return max;
+}
+
+void MainScene::CollisionCheck()
+{
+	const auto& p1Box = mPlayer1->GetBox()->GetWorldBox();
+	const auto& p2Box = mPlayer2->GetBox()->GetWorldBox();
+
+	for (auto vehicle : mGfw->GetActorsAt(Gfw::Layer::kVehicle))
+	{
+		if (vehicle->GetState() != Actor::State::kActive)
+			continue;
+
+		auto vp = (Vehicle*)vehicle;
+
+		const auto& vehicleBox = vp->GetBox()->GetWorldBox();
+		if (Intersects(p1Box, vehicleBox))
+		{
+			if (vp->GetType() == Vehicle::VehicleType::kLog)
+			{
+				std::cout << "P1 log" << std::endl;
+			}
+			else
+				std::cout << "p1 vehicle" << std::endl;
+		}
+
+		if (Intersects(p2Box, vehicleBox))
+		{
+			if (vp->GetType() == Vehicle::VehicleType::kLog)
+			{
+				std::cout << "P2 log" << std::endl;
+			}
+			else
+				std::cout << "p2 vehicle" << std::endl;
+		}
+	}
 }
