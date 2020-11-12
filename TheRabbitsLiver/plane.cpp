@@ -5,6 +5,8 @@
 #include "mesh.h"
 #include "random.h"
 
+#include "tree.h"
+
 Plane::Plane(Gfw* gfw, PlaneType type, int curStage, bool right, Gfw::Layer layer)
 	: Actor{ gfw, layer },
 	mBox{ nullptr },
@@ -48,6 +50,9 @@ Plane::Plane(Gfw* gfw, PlaneType type, int curStage, bool right, Gfw::Layer laye
 	auto mc = new MeshComponent{ this, file };
 	mBox = new BoxComponent{ this };
 	mBox->SetObjectBox(mc->GetMesh()->GetBox());
+
+	if (mType == PlaneType::kGrass)
+		GenerateTree();
 }
 
 void Plane::UpdateActor()
@@ -71,4 +76,18 @@ void Plane::GenerateVehicle()
 	if (mLeftOrRight == -1)
 		vehicle->SetRotation(180.0f);
 	mCooldown = Random::GetFloatRange(2.0f, 4.0f) + vehicle->GetGenTerm();
+}
+
+void Plane::GenerateTree()
+{
+	const auto& pos = GetPosition();
+	
+	auto treeNum = Random::GetIntRange(5, 8);
+	auto xPos = Random::GetShuffledArray(-12, 12, 0);
+
+	for (int i = 0; i < treeNum; ++i)
+	{
+		auto tree = new Tree{ mGfw, static_cast<Tree::TreeType>(Random::GetIntRange(0, 0)) };
+		tree->SetPosition(glm::vec3{ xPos[i] * 2.0f, pos.y + 0.2f, pos.z });
+	}
 }

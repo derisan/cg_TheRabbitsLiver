@@ -46,6 +46,8 @@ void MainScene::Enter()
 	mMeshShader->SetActive();
 	mMeshShader->SetMatrix4Uniform("uProj", proj);
 
+	mCurStage = 0;
+
 	// Load game data
 	LoadData();
 }

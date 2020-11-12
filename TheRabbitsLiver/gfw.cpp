@@ -203,8 +203,11 @@ void Gfw::RemoveActorAt(Actor* actor, Layer layer)
 void Gfw::RemoveAll()
 {
 	for (auto actors : mActors)
+	{
 		for (auto actor : actors)
 			delete actor;
+		actors.clear();
+	}
 }
 
 void Gfw::AddMesh(MeshComponent* mesh)

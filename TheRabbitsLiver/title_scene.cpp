@@ -1,5 +1,7 @@
 #include "title_scene.h"
 
+#include <iostream>
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
@@ -46,7 +48,7 @@ void TitleScene::ProcessInput(unsigned char key)
 
 void TitleScene::Update()
 {
-
+	
 }
 
 void TitleScene::Draw()

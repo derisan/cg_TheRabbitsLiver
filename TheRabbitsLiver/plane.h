@@ -21,6 +21,7 @@ public:
     void UpdateActor() override;
 
     void GenerateVehicle();
+    void GenerateTree();
 
     // Getters
     class BoxComponent* GetBox() const { return mBox; }

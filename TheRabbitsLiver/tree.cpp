@@ -15,7 +15,7 @@ Tree::Tree(Gfw* gfw, TreeType type, Gfw::Layer layer)
 	switch (type)
 	{
 		case kBasic:
-			file = "Assets/basic_mesh.gpmesh";
+			file = "Assets/basic_tree.gpmesh";
 			SetScale(0.1f);
 			break;
 	}
