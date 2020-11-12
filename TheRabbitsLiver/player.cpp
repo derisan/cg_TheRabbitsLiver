@@ -12,7 +12,7 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	mBox{ nullptr },
 	mCamera{ nullptr },
 	mType{ type },
-	mBorder{ {-12.0f, 36.0f}, {0.0f, -16.0f} },
+	mBorder{ {-24.0f, 24.0f}, {0.0f, -16.0f} },
 	mPrevMovement{ 0.0f }
 {
 	std::string file;

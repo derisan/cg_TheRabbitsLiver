@@ -50,7 +50,7 @@ void Vehicle::UpdateActor()
 	auto pos = GetPosition();
 	pos += right * mSpeed * mGfw->dt;
 
-	if (pos.x > 40.0f || pos.x < -15.0f)
+	if (pos.x > 27.0f || pos.x < -27.0f)
 		SetState(State::kDead);
 
 	SetPosition(pos);

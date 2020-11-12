@@ -83,6 +83,9 @@
     <ClCompile Include="vehicle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h">
@@ -152,6 +155,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="vehicle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="random.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
