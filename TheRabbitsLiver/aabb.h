@@ -16,3 +16,4 @@ struct AABB
 };
 
 bool Intersects(const AABB& a, const AABB& b);
+bool Intersects(const AABB& a, class Plane* plane);

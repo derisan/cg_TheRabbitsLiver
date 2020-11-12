@@ -76,7 +76,6 @@ void MainScene::Update()
 	if (mCurStage < mStage.size())
 		CreatePlane();
 
-	RemoveBehind();
 	CollisionCheck();
 }
 
@@ -146,37 +145,6 @@ void MainScene::CreatePlane()
 	}
 }
 
-// 충돌체크와 z값 비교를 같이 하면 루프를 한 번만 돌 수 있다
-void MainScene::RemoveBehind()
-{
-	auto maxZ = GetMaxZ();
-
-	for (auto plane : mGfw->GetActorsAt(Gfw::Layer::kPlane))
-	{
-		auto z = plane->GetPosition().z;
-		if (maxZ + 6.0f < z)
-		{
-			plane->SetState(Actor::State::kDead);
-			mPlayer1->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
-			mPlayer2->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
-		}
-	}
-
-	for (auto vehicle : mGfw->GetActorsAt(Gfw::Layer::kVehicle))
-	{
-		auto z = vehicle->GetPosition().z;
-		if (maxZ + 6.0f < z)
-			vehicle->SetState(Actor::State::kDead);
-	}
-
-	for (auto tree : mGfw->GetActorsAt(Gfw::Layer::kTree))
-	{
-		auto z = tree->GetPosition().z;
-		if (maxZ + 6.0f < z)
-			tree->SetState(Actor::State::kDead);
-	}
-}
-
 float MainScene::GetMaxZ()
 {
 	const auto& p1Pos = mPlayer1->GetPosition();
@@ -191,13 +159,22 @@ void MainScene::CollisionCheck()
 {
 	const auto& p1Box = mPlayer1->GetBox()->GetWorldBox();
 	const auto& p2Box = mPlayer2->GetBox()->GetWorldBox();
+	auto maxZ = GetMaxZ();
 
+	// Collision check with vehicles
 	for (auto vehicle : mGfw->GetActorsAt(Gfw::Layer::kVehicle))
 	{
 		if (vehicle->GetState() != Actor::State::kActive)
 			continue;
 
 		auto vp = (Vehicle*)vehicle;
+
+		auto z = vp->GetPosition().z;
+		if (maxZ + 6.0f < z)
+		{
+			vp->SetState(Actor::State::kDead);
+			continue;
+		}
 
 		const auto& vehicleBox = vp->GetBox()->GetWorldBox();
 		if (Intersects(p1Box, vehicleBox))
@@ -218,6 +195,41 @@ void MainScene::CollisionCheck()
 			}
 			else
 				std::cout << "p2 vehicle" << std::endl;
+		}
+	}
+
+	// Collision check with planes
+	for (auto plane : mGfw->GetActorsAt(Gfw::Layer::kPlane))
+	{
+		if (plane->GetState() != Actor::State::kActive)
+			continue;
+
+		auto pp = (Plane*)plane;
+
+		auto z = pp->GetPosition().z;
+		if (maxZ + 6.0f < z)
+		{
+			pp->SetState(Actor::State::kDead);
+			mPlayer1->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
+			mPlayer2->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
+			continue;
+		}
+
+		const auto& planeBox = pp->GetBox()->GetWorldBox();
+		if (Intersects(p1Box, planeBox))
+		{
+			if (pp->GetType() != Plane::kWater)
+			{
+
+			}
+		}
+		
+		if (Intersects(p2Box, planeBox))
+		{
+			if (pp->GetType() != Plane::kWater)
+			{
+
+			}
 		}
 	}
 }

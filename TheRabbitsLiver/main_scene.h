@@ -21,7 +21,6 @@ public:
 	// Scene specific
 	void LoadData();
 	void CreatePlane();
-	void RemoveBehind();
 	void CollisionCheck();
 
 	float GetMaxZ();
