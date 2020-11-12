@@ -8,6 +8,7 @@
 
 #include "vehicle.h"
 #include "tree.h"
+#include "particle.h"
 
 
 Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
@@ -147,6 +148,9 @@ void Player::HitByCar()
 		mInvincibleTime = 1.5f;
 		SoundEngine::Get()->Stop("DragonHawkDeath1.wav");
 		SoundEngine::Get()->Play("DragonHawkDeath1.wav");
+
+		for (int i = 0; i < 5; ++i)
+			new Particle{ mGfw, Particle::kCarrot, GetPosition() };
 	}
 
 	if (mLives == 0)
