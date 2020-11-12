@@ -13,6 +13,9 @@ public:
 
     void Draw(class Shader* shader);
 
+    // Getters
+    class Mesh* GetMesh() const { return mMesh; }
+
 private:
     class Mesh* mMesh;
     class Texture* mTexture;

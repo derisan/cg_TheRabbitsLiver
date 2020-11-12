@@ -33,7 +33,7 @@ MeshComponent::~MeshComponent()
 
 void MeshComponent::Draw(Shader* shader)
 {
-	shader->SetActive();
+	shader->SetMatrix4Uniform("uWorld", mOwner->GetWorldTransform());
 	mTexture->SetActive();
 	mVertexArray->SetActive();
 	glDrawElements(GL_TRIANGLES, mVertexArray->GetNumIndices(), GL_UNSIGNED_INT, nullptr);
