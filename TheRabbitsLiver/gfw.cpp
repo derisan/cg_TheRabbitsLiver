@@ -15,6 +15,7 @@
 #include "actor.h"
 #include "mesh_component.h"
 #include "sprite_component.h"
+#include "random.h"
 
 Gfw::Gfw()
 	: mActors( 5 ),
@@ -43,6 +44,8 @@ bool Gfw::Init(int* argc, char** argv, int w, int h)
 		std::cout << "Unable to initialize GLEW" << std::endl;
 		return false;
 	}
+	
+	Random::Init();
 
 	mScenesMap.emplace("loading", new LoadingScene{ this });
 	mScenesMap.emplace("title", new TitleScene{ this });
