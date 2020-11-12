@@ -141,6 +141,7 @@ void MainScene::CreatePlane()
 	}
 }
 
+// 충돌체크와 z값 비교를 같이 하면 루프를 한 번만 돌 수 있다
 void MainScene::RemoveBehind()
 {
 	auto maxZ = GetMaxZ();

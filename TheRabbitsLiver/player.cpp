@@ -11,7 +11,8 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	: Actor{ gfw, layer },
 	mBox{ nullptr },
 	mCamera{ nullptr },
-	mType{ type }
+	mType{ type },
+	mBorder{}
 {
 	std::string file;
 	if (type == PlayerType::kP1)
