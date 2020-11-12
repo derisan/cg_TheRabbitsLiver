@@ -21,6 +21,9 @@ public:
 	// Scene specific
 	void LoadData();
 	void CreatePlane();
+	void RemoveBehind();
+
+	float GetMaxZ();
 
 private:
 	std::vector<int> mStage;

@@ -42,4 +42,6 @@ Plane::Plane(Gfw* gfw, PlaneType type, int curStage, Gfw::Layer layer)
 void Plane::UpdateActor()
 {
 	Actor::UpdateActor();
+
+
 }

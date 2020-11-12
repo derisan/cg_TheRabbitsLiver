@@ -73,6 +73,8 @@ void MainScene::Update()
 {
 	if (mCurStage < mStage.size())
 		CreatePlane();
+
+	RemoveBehind();
 }
 
 void MainScene::Draw()
@@ -131,10 +133,43 @@ void MainScene::LoadData()
 
 void MainScene::CreatePlane()
 {
+	auto maxZ = GetMaxZ();
+	for (; mCurStage < -maxZ + 10; ++mCurStage)
+		new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage };
+}
+
+void MainScene::RemoveBehind()
+{
+	auto maxZ = GetMaxZ();
+
+	for (auto plane : mGfw->GetActorsAt(Gfw::Layer::kPlane))
+	{
+		auto z = plane->GetPosition().z;
+		if (maxZ + 6.0f < z)
+			plane->SetState(Actor::State::kDead);
+	}
+
+	for (auto vehicle : mGfw->GetActorsAt(Gfw::Layer::kVehicle))
+	{
+		auto z = vehicle->GetPosition().z;
+		if (maxZ + 6.0f < z)
+			vehicle->SetState(Actor::State::kDead);
+	}
+
+	for (auto tree : mGfw->GetActorsAt(Gfw::Layer::kTree))
+	{
+		auto z = tree->GetPosition().z;
+		if (maxZ + 6.0f < z)
+			tree->SetState(Actor::State::kDead);
+	}
+}
+
+float MainScene::GetMaxZ()
+{
 	const auto& p1Pos = mPlayer1->GetPosition();
 	const auto& p2Pos = mPlayer2->GetPosition();
 
-	auto minZ = glm::min(p1Pos.z, p2Pos.z);
-	for (; mCurStage < -minZ + 8; ++mCurStage)
-		new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage };
+	auto max = glm::max(p1Pos.z, p2Pos.z);
+
+	return max;
 }
