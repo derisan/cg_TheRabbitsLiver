@@ -28,7 +28,8 @@ MainScene::MainScene(Gfw* gfw)
 	mSpriteShader{ nullptr },
 	mMeshShader{ nullptr },
 	mPlayer1{ nullptr },
-	mPlayer2{ nullptr }
+	mPlayer2{ nullptr },
+	mCurStage{ 0 }
 {
 	mRenderer = Renderer::Get();
 	mSpriteShader = mRenderer->GetShader("sprite");

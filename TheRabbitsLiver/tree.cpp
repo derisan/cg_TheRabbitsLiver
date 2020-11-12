@@ -2,7 +2,6 @@
 
 #include "mesh_component.h"
 #include "box_component.h"
-#include "camera_component.h"
 #include "mesh.h"
 
 Tree::Tree(Gfw* gfw, TreeType type, Gfw::Layer layer)

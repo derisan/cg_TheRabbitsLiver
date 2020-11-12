@@ -154,6 +154,7 @@
     <ClCompile Include="main_scene.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="mesh_component.cpp" />
+    <ClCompile Include="particle.cpp" />
     <ClCompile Include="plane.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="random.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="main_scene.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="mesh_component.h" />
+    <ClInclude Include="particle.h" />
     <ClInclude Include="plane.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="random.h" />
