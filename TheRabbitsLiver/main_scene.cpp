@@ -184,7 +184,7 @@ void MainScene::CollisionCheck()
 				mPlayer1->OnBoard(vp);
 			}
 			else
-				std::cout << "p1 vehicle" << std::endl;
+				mPlayer1->HitByCar();
 		}
 
 		if (Intersects(p2Box, vehicleBox))
@@ -194,7 +194,7 @@ void MainScene::CollisionCheck()
 				mPlayer2->OnBoard(vp);
 			}
 			else
-				std::cout << "p2 vehicle" << std::endl;
+				mPlayer2->HitByCar();
 		}
 	}
 

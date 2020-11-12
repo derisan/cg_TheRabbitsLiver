@@ -20,6 +20,7 @@ public:
     // Collision process
     void Fall();
     void OnBoard(class Vehicle* log);
+    void HitByCar();
 
     // Getters
     class BoxComponent* GetBox() const { return mBox; }
@@ -43,5 +44,7 @@ private:
     Border mBorder;
 
     glm::vec3 mPrevMovement;
+    int mLives;
+    float mInvincibleTime;
 };
 

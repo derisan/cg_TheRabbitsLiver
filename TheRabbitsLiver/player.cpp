@@ -1,13 +1,13 @@
 #include "player.h"
 
-#include <iostream>
-
 #include "mesh_component.h"
 #include "box_component.h"
 #include "camera_component.h"
 #include "mesh.h"
+#include "sound_engine.h"
 
 #include "vehicle.h"
+
 
 Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	: Actor{ gfw, layer },
@@ -15,7 +15,9 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	mCamera{ nullptr },
 	mType{ type },
 	mBorder{ {-24.0f, 24.0f}, {0.0f, -16.0f} },
-	mPrevMovement{ 0.0f }
+	mPrevMovement{ 0.0f },
+	mLives{ 3 },
+	mInvincibleTime{ 0.0f }
 {
 	std::string file;
 	if (type == PlayerType::kP1)
@@ -38,6 +40,8 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 
 void Player::UpdateActor()
 {
+	mInvincibleTime -= mGfw->dt;
+
 	auto pos = GetPosition();
 
 	if (pos.x < mBorder.x.x)
@@ -123,4 +127,18 @@ void Player::OnBoard(Vehicle* log)
 	pos.y = 0.1f;
 
 	SetPosition(pos);
+}
+
+void Player::HitByCar()
+{
+	if (mInvincibleTime < 0.0f)
+	{
+		--mLives;
+		mInvincibleTime = 1.5f;
+		SoundEngine::Get()->Stop("DragonHawkDeath1.wav");
+		SoundEngine::Get()->Play("DragonHawkDeath1.wav");
+	}
+
+	if (mLives == 0)
+		;
 }
