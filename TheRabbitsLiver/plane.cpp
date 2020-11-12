@@ -4,7 +4,7 @@
 #include "box_component.h"
 #include "mesh.h"
 
-Plane::Plane(Gfw* gfw, PlaneType type, int curStage, Gfw::Layer layer)
+Plane::Plane(Gfw* gfw, PlaneType type, int curStage, bool right, Gfw::Layer layer)
 	: Actor{ gfw, layer },
 	mBox{ nullptr },
 	mType{ type }
@@ -32,7 +32,10 @@ Plane::Plane(Gfw* gfw, PlaneType type, int curStage, Gfw::Layer layer)
 			break;
 	}
 
-	SetPosition(glm::vec3{ 0.0f, yOffset, -2.0f * curStage });
+	if(!right)
+		SetPosition(glm::vec3{ 0.0f, yOffset, -2.0f * curStage });
+	else
+		SetPosition(glm::vec3{ 24.0f, yOffset, -2.0f * curStage });
 
 	auto mc = new MeshComponent{ this, file };
 	mBox = new BoxComponent{ this };

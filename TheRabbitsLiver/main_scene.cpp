@@ -112,7 +112,7 @@ void MainScene::LoadData()
 {
 	mPlayer1 = new Player{ mGfw, Player::kP1 };
 	mPlayer2 = new Player{ mGfw, Player::kP2 };
-	mPlayer2->SetPosition(glm::vec3{ 3.0f, 0.0f, 0.0f });
+	mPlayer2->SetPosition(glm::vec3{ 24.0f, 0.0f, 0.0f });
 
 	// Read stage from file
 	std::ifstream file{ "Assets/stage.txt" };
@@ -135,7 +135,10 @@ void MainScene::CreatePlane()
 {
 	auto maxZ = GetMaxZ();
 	for (; mCurStage < -maxZ + 10; ++mCurStage)
+	{
 		new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage };
+		new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage, true };
+	}
 }
 
 void MainScene::RemoveBehind()
