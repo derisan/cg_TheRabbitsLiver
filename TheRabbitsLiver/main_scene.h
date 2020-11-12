@@ -1,5 +1,9 @@
 #pragma once
+
 #include "scene.h"
+
+#include <vector>
+
 class MainScene:
     public Scene
 {
@@ -16,13 +20,18 @@ public:
 
 	// Scene specific
 	void LoadData();
+	void CreatePlane();
 
 private:
+	std::vector<int> mStage;
+
 	class Renderer* mRenderer;
 	class Shader* mSpriteShader;
 	class Shader* mMeshShader;
 
 	class Player* mPlayer1;
 	class Player* mPlayer2;
+
+	int mCurStage;
 };
 

@@ -1,5 +1,9 @@
 #include "main_scene.h"
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
@@ -12,6 +16,7 @@
 #include "sound_engine.h"
 #include "shader.h"
 #include "player.h"
+#include "plane.h"
 #include "camera_component.h"
 #include "mesh_component.h"
 
@@ -66,7 +71,8 @@ void MainScene::ProcessInput(unsigned char key)
 
 void MainScene::Update()
 {
-
+	if (mCurStage < mStage.size())
+		CreatePlane();
 }
 
 void MainScene::Draw()
@@ -105,4 +111,30 @@ void MainScene::LoadData()
 	mPlayer1 = new Player{ mGfw, Player::kP1 };
 	mPlayer2 = new Player{ mGfw, Player::kP2 };
 	mPlayer2->SetPosition(glm::vec3{ 3.0f, 0.0f, 0.0f });
+
+	// Read stage from file
+	std::ifstream file{ "Assets/stage.txt" };
+	if (!file.is_open())
+	{
+		std::cout << "Failed to read stage file" << std::endl;
+		return;
+	}
+
+	std::stringstream s;
+	s << file.rdbuf();
+	std::string contents = s.str();
+
+	for (auto ch : contents)
+		if (ch != '\n' && ch != ' ')
+			mStage.emplace_back(ch - 65);
+}
+
+void MainScene::CreatePlane()
+{
+	const auto& p1Pos = mPlayer1->GetPosition();
+	const auto& p2Pos = mPlayer2->GetPosition();
+
+	auto minZ = glm::min(p1Pos.z, p2Pos.z);
+	for (; mCurStage < -minZ + 8; ++mCurStage)
+		new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage };
 }
