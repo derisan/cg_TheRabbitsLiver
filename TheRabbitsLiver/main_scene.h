@@ -23,6 +23,7 @@ public:
 	void CreatePlane();
 	void CollisionCheck();
 
+	bool IsWin();
 	float GetMaxZ();
 
 private:

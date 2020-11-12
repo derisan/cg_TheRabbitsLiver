@@ -80,6 +80,9 @@ void MainScene::Update()
 		CreatePlane();
 
 	CollisionCheck();
+
+	if (IsWin())
+		mGfw->ChangeScene("winning");
 }
 
 void MainScene::Draw()
@@ -227,4 +230,12 @@ void MainScene::CollisionCheck()
 		if (Intersects(p2Box, pp))
 			mPlayer2->Fall();
 	}
+}
+
+bool MainScene::IsWin()
+{
+	if (GetMaxZ() == -2.0f * (mStage.size() - 1))
+		return true;
+
+	return false;
 }
