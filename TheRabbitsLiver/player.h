@@ -19,6 +19,7 @@ public:
 
     // Collision process
     void Fall();
+    void OnBoard(class Vehicle* log);
 
     // Getters
     class BoxComponent* GetBox() const { return mBox; }

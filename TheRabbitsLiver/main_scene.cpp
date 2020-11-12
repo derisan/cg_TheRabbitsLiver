@@ -181,7 +181,7 @@ void MainScene::CollisionCheck()
 		{
 			if (vp->GetType() == Vehicle::VehicleType::kLog)
 			{
-				std::cout << "P1 log" << std::endl;
+				mPlayer1->OnBoard(vp);
 			}
 			else
 				std::cout << "p1 vehicle" << std::endl;
@@ -191,7 +191,7 @@ void MainScene::CollisionCheck()
 		{
 			if (vp->GetType() == Vehicle::VehicleType::kLog)
 			{
-				std::cout << "P2 log" << std::endl;
+				mPlayer2->OnBoard(vp);
 			}
 			else
 				std::cout << "p2 vehicle" << std::endl;

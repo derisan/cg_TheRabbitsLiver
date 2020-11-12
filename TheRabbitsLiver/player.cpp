@@ -7,6 +7,8 @@
 #include "camera_component.h"
 #include "mesh.h"
 
+#include "vehicle.h"
+
 Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	: Actor{ gfw, layer },
 	mBox{ nullptr },
@@ -111,12 +113,14 @@ void Player::PlayerTwoInput(unsigned char key)
 
 void Player::Fall()
 {
-	auto pos = GetPosition();
-	if (pos.y < -10.0f)
-		return;
+	// Do something when player steps into water
+}
 
-	pos.y -= 0.5f;
+void Player::OnBoard(Vehicle* log)
+{
+	auto pos = GetPosition();
+	pos.x = log->GetPosition().x;
+	pos.y = 0.1f;
 
 	SetPosition(pos);
 }
-
