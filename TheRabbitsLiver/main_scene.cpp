@@ -141,6 +141,7 @@ void MainScene::CreatePlane()
 	}
 }
 
+// 충돌체크와 z값 비교를 같이 하면 루프를 한 번만 돌 수 있다
 void MainScene::RemoveBehind()
 {
 	auto maxZ = GetMaxZ();
@@ -149,7 +150,11 @@ void MainScene::RemoveBehind()
 	{
 		auto z = plane->GetPosition().z;
 		if (maxZ + 6.0f < z)
+		{
 			plane->SetState(Actor::State::kDead);
+			mPlayer1->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
+			mPlayer2->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
+		}
 	}
 
 	for (auto vehicle : mGfw->GetActorsAt(Gfw::Layer::kVehicle))

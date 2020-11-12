@@ -23,10 +23,22 @@ public:
     class CameraComponent* GetCamera() const { return mCamera; }
     PlayerType GetType() const { return mType; }
 
+    // Setters
+    void SetZBorder(const glm::vec2 z) { mBorder.z = z; }
+
 private:
     class BoxComponent* mBox;
     class CameraComponent* mCamera;
 
     PlayerType mType;
+
+    struct Border
+    {
+        const glm::vec2 x;
+        glm::vec2 z;
+    };
+    Border mBorder;
+
+    glm::vec3 mPrevMovement;
 };
 

@@ -11,7 +11,9 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	: Actor{ gfw, layer },
 	mBox{ nullptr },
 	mCamera{ nullptr },
-	mType{ type }
+	mType{ type },
+	mBorder{ {-12.0f, 36.0f}, {0.0f, -16.0f} },
+	mPrevMovement{ 0.0f }
 {
 	std::string file;
 	if (type == PlayerType::kP1)
@@ -34,7 +36,19 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 
 void Player::UpdateActor()
 {
+	auto pos = GetPosition();
 
+	if (pos.x < mBorder.x.x)
+		pos.x = mBorder.x.x;
+	else if (pos.x > mBorder.x.y)
+		pos.x = mBorder.x.y;
+
+	if (pos.z > mBorder.z.x)
+		pos.z = mBorder.z.x;
+	else if (pos.z < mBorder.z.y)
+		pos.z = mBorder.z.y;
+
+	SetPosition(pos);
 }
 
 void Player::ActorInput(unsigned char key)
