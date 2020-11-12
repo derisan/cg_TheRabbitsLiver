@@ -1,5 +1,8 @@
 #pragma once
+
 #include "actor.h"
+#include "vehicle.h"
+
 class Plane :
     public Actor
 {
@@ -17,6 +20,8 @@ public:
 
     void UpdateActor() override;
 
+    void GenerateVehicle();
+
     // Getters
     class BoxComponent* GetBox() const { return mBox; }
     PlaneType GetType() const { return mType; }
@@ -25,5 +30,9 @@ private:
     class BoxComponent* mBox;
 
     PlaneType mType;
+    Vehicle::VehicleType mVehicleType;
+
+    float mCooldown;
+    int mLeftOrRight;
 };
 
