@@ -23,8 +23,6 @@ TitleScene::TitleScene(Gfw* gfw)
 
 void TitleScene::Enter()
 {
-	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
-	
 	SoundEngine::Get()->Play("happy.mp3");
 
 	auto img = new Actor{ mGfw, mGfw->kDefault };
@@ -53,6 +51,8 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
+	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 

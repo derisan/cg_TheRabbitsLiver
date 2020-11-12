@@ -21,8 +21,6 @@ DeadScene::DeadScene(Gfw* gfw)
 
 void DeadScene::Enter()
 {
-	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
-
 	SoundEngine::Get()->Play("gameover.wav");
 
 	auto img = new Actor{ mGfw };
@@ -52,6 +50,8 @@ void DeadScene::Update()
 
 void DeadScene::Draw()
 {
+	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 

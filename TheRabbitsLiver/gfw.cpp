@@ -85,6 +85,8 @@ void Gfw::ProcessInput(unsigned char key)
 {
 	if (key == 0)
 		return;
+	else if (key == 'u')
+		glutFullScreenToggle();
 
 	for (auto actors : mActors)
 		for (auto actor : actors)
@@ -97,6 +99,10 @@ void Gfw::ProcessInput(unsigned char key)
 
 void Gfw::Update()
 {
+	// Update screen width and height
+	mScrWidth = glutGet(GLUT_WINDOW_WIDTH);
+	mScrHeight = glutGet(GLUT_WINDOW_HEIGHT);
+
 	auto curScene = mScenes.top();
 
 	if (curScene->GetState() == Scene::State::kPaused)

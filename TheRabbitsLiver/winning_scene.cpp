@@ -23,8 +23,6 @@ WinningScene::WinningScene(Gfw* gfw)
 
 void WinningScene::Enter()
 {
-	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
-
 	SoundEngine::Get()->Play("victory.mp3");
 
 	auto img = new Actor{ mGfw };
@@ -54,6 +52,8 @@ void WinningScene::Update()
 
 void WinningScene::Draw()
 {
+	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 

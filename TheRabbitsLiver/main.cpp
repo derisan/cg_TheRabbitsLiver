@@ -21,7 +21,7 @@ Gfw gfw;
 
 int main(int argc, char** argv)
 {
-	if (!gfw.Init(&argc, argv, 1600, 900))
+	if (!gfw.Init(&argc, argv, 1024, 768))
 	{
 		std::cout << "Failed to initialize gfw" << std::endl;
 		return -1;
@@ -44,7 +44,7 @@ void DisplayFunc()
 
 void ReshapeFunc(int w, int h)
 {
-	//glViewport(0, 0, w, h);
+
 }
 
 unsigned char key;

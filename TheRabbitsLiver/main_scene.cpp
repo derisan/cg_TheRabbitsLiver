@@ -90,30 +90,25 @@ void MainScene::Draw()
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+	// Render bottom screen
 	glEnable(GL_DEPTH_TEST);
-
 	mMeshShader->SetActive();
-
-	glViewport(0, 0, 1600, 450);
+	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight() / 2);
 	mMeshShader->SetMatrix4Uniform("uView", mPlayer1->GetCamera()->GetView());
 	for (auto mesh : mGfw->GetMeshes())
 		mesh->Draw(mMeshShader);
 
-	glViewport(0, 450, 1600, 450);
+	// Render Top screen
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	mMeshShader->SetActive();
+	glViewport(0, mGfw->GetScrHeight() / 2, mGfw->GetScrWidth(), mGfw->GetScrHeight() / 2);
 	mMeshShader->SetMatrix4Uniform("uView", mPlayer2->GetCamera()->GetView());
 	for (auto mesh : mGfw->GetMeshes())
 		mesh->Draw(mMeshShader);
 
-
-	glViewport(0, 0, 1600, 900);
-	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
-	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
-	mSpriteShader->SetActive();
-	for (auto sprite : mGfw->GetSprites())
-		sprite->Draw(mSpriteShader);
-	
 
 	glutSwapBuffers();
 }
