@@ -6,7 +6,6 @@
     "bus.gpmesh",
     "car.gpmesh",
     "carrot.gpmesh",
-    "earth.gpmesh",
     "fireball.gpmesh",
     "grass.gpmesh",
     "log.gpmesh",
@@ -58,9 +57,7 @@
     "slashing.wav"
   ],
   "jpg": [
-    "earth.jpg",
     "moon.jpg",
-    "pressenter.jpg",
-    "space.jpg"
+    "pressenter.jpg"
   ]
 }
