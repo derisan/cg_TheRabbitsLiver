@@ -18,6 +18,7 @@
 #include "player.h"
 #include "plane.h"
 #include "vehicle.h"
+#include "tree.h"
 #include "camera_component.h"
 #include "mesh_component.h"
 #include "box_component.h"
@@ -102,6 +103,17 @@ void MainScene::Draw()
 	mMeshShader->SetMatrix4Uniform("uView", mPlayer2->GetCamera()->GetView());
 	for (auto mesh : mGfw->GetMeshes())
 		mesh->Draw(mMeshShader);
+
+
+	glViewport(0, 0, 1600, 900);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+	mSpriteShader->SetActive();
+	for (auto sprite : mGfw->GetSprites())
+		sprite->Draw(mSpriteShader);
+	
 
 	glutSwapBuffers();
 }
@@ -229,6 +241,22 @@ void MainScene::CollisionCheck()
 		
 		if (Intersects(p2Box, pp))
 			mPlayer2->Fall();
+	}
+
+	// Tree must die
+	for (auto tree : mGfw->GetActorsAt(Gfw::Layer::kTree))
+	{
+		if (tree->GetState() != Actor::State::kActive)
+			continue;
+
+		auto tp = (Tree*)tree;
+		auto z = tp->GetPosition().z;
+
+		if (maxZ + 6.0f < z)
+		{
+			tp->SetState(Actor::State::kDead);
+			continue;
+		}
 	}
 }
 

@@ -29,7 +29,6 @@
     "grass.png",
     "life_carrot.png",
     "life_heart.png",
-    "loading.png",
     "log.png",
     "penguin.png",
     "pumpkin.png",
@@ -57,7 +56,6 @@
     "slashing.wav"
   ],
   "jpg": [
-    "moon.jpg",
     "pressenter.jpg"
   ]
 }
