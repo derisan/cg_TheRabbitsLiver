@@ -17,16 +17,19 @@ public:
     void PlayerOneInput(unsigned char key);
     void PlayerTwoInput(unsigned char key);
 
+    // Collision detect
+    void CheckCollisionWithTree();
+
     // Collision process
     void Fall();
     void OnBoard(class Vehicle* log);
     void HitByCar();
-
+    
     // Getters
     class BoxComponent* GetBox() const { return mBox; }
     class CameraComponent* GetCamera() const { return mCamera; }
     PlayerType GetType() const { return mType; }
-
+    
     // Setters
     void SetZBorder(const glm::vec2 z) { mBorder.z = z; }
 

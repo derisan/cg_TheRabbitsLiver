@@ -7,6 +7,7 @@
 #include "sound_engine.h"
 
 #include "vehicle.h"
+#include "tree.h"
 
 
 Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
@@ -42,8 +43,9 @@ void Player::UpdateActor()
 {
 	mInvincibleTime -= mGfw->dt;
 
-	auto pos = GetPosition();
+	CheckCollisionWithTree();
 
+	auto pos = GetPosition();
 	if (pos.x < mBorder.x.x)
 		pos.x = mBorder.x.x;
 	else if (pos.x > mBorder.x.y)
@@ -75,15 +77,19 @@ void Player::PlayerOneInput(unsigned char key)
 	{
 		case 'w': case 'W':
 			pos += forward * 2.0f;
+			mPrevMovement = -(forward * 2.0f);
 			break;
 		case 's': case 'S':
 			pos -= forward * 2.0f;
+			mPrevMovement = (forward * 2.0f);
 			break;
 		case 'a': case 'A':
 			pos -= right * 1.2f;
+			mPrevMovement = (right * 1.2f);
 			break;
 		case 'd': case 'D':
 			pos += right * 1.2f;
+			mPrevMovement = -(right * 1.2f);
 			break;
 	}
 
@@ -100,15 +106,19 @@ void Player::PlayerTwoInput(unsigned char key)
 	{
 		case 'i': case 'I':
 			pos += forward * 2.0f;
+			mPrevMovement = -(forward * 2.0f);
 			break;
 		case 'k': case 'K':
 			pos -= forward * 2.0f;
+			mPrevMovement = (forward * 2.0f);
 			break;
 		case 'j': case 'J':
 			pos -= right * 1.2f;
+			mPrevMovement = (right * 1.2f);
 			break;
 		case 'l': case 'L':
 			pos += right * 1.2f;
+			mPrevMovement = -(right * 1.2f);
 			break;
 	}
 
@@ -141,4 +151,25 @@ void Player::HitByCar()
 
 	if (mLives == 0)
 		;
+}
+
+void Player::CheckCollisionWithTree()
+{
+	// Check collision with tree
+	const auto& playerBox = mBox->GetWorldBox();
+	for (auto tree : mGfw->GetActorsAt(Gfw::kTree))
+	{
+		if (tree->GetState() != Actor::State::kActive)
+			continue;
+
+		auto tp = (Tree*)tree;
+
+		const auto& treeBox = tp->GetBox()->GetWorldBox();
+		if (Intersects(playerBox, treeBox))
+		{
+			auto pos = GetPosition() + mPrevMovement;
+			SetPosition(pos);
+			break;
+		}
+	}
 }
