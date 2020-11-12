@@ -14,8 +14,15 @@ public:
 	void Pause() override;
 	void Resume() override;
 
+	// Scene specific
+	void LoadData();
+
 private:
 	class Renderer* mRenderer;
 	class Shader* mSpriteShader;
+	class Shader* mMeshShader;
+
+	class Player* mPlayer1;
+	class Player* mPlayer2;
 };
 

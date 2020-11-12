@@ -144,6 +144,8 @@
   <ItemGroup>
     <ClCompile Include="aabb.cpp" />
     <ClCompile Include="actor.cpp" />
+    <ClCompile Include="box_component.cpp" />
+    <ClCompile Include="camera_component.cpp" />
     <ClCompile Include="component.cpp" />
     <ClCompile Include="dead_scene.cpp" />
     <ClCompile Include="gfw.cpp" />
@@ -152,6 +154,7 @@
     <ClCompile Include="main_scene.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="mesh_component.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="shader.cpp" />
@@ -165,6 +168,8 @@
   <ItemGroup>
     <ClInclude Include="aabb.h" />
     <ClInclude Include="actor.h" />
+    <ClInclude Include="box_component.h" />
+    <ClInclude Include="camera_component.h" />
     <ClInclude Include="component.h" />
     <ClInclude Include="dead_scene.h" />
     <ClInclude Include="gfw.h" />
@@ -172,6 +177,7 @@
     <ClInclude Include="main_scene.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="mesh_component.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />

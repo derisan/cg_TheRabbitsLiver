@@ -3,28 +3,44 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "gfw.h"
 #include "renderer.h"
 #include "actor.h"
 #include "sprite_component.h"
 #include "sound_engine.h"
 #include "shader.h"
+#include "player.h"
+#include "camera_component.h"
+#include "mesh_component.h"
 
 MainScene::MainScene(Gfw* gfw)
 	: Scene{ gfw },
 	mRenderer{ nullptr },
-	mSpriteShader{ nullptr }
+	mSpriteShader{ nullptr },
+	mMeshShader{ nullptr },
+	mPlayer1{ nullptr },
+	mPlayer2{ nullptr }
 {
 	mRenderer = Renderer::Get();
 	mSpriteShader = mRenderer->GetShader("sprite");
+	mMeshShader = mRenderer->GetShader("basicMesh");
 }
 
 void MainScene::Enter()
 {
 	SoundEngine::Get()->Play("BlueWorld.mp3", 0.75f);
 
-	auto bg = new Actor{ mGfw };
-	auto sc = new SpriteComponent{ bg, "Assets/deadscreen.png" };
+	// Set projection matrix in advance. Because it rarely changes.
+	glm::mat4 proj{ 1.0f };
+	proj = glm::perspective(45.0f, static_cast<float>(GetGfw()->GetScrWidth()) / GetGfw()->GetScrHeight(),
+		0.1f, 100.0f);
+	mMeshShader->SetActive();
+	mMeshShader->SetMatrix4Uniform("uProj", proj);
+
+	// Load game data
+	LoadData();
 }
 
 void MainScene::Exit()
@@ -62,19 +78,17 @@ void MainScene::Draw()
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
+	mMeshShader->SetActive();
 
 	glViewport(0, 0, 1600, 450);
-	// Draw all sprites
-	mSpriteShader->SetActive();
-	auto sprites = mGfw->GetSprites();
-	for (auto sprite : sprites)
-		sprite->Draw(mSpriteShader);
-
+	mMeshShader->SetMatrix4Uniform("uView", mPlayer1->GetCamera()->GetView());
+	for (auto mesh : mGfw->GetMeshes())
+		mesh->Draw(mMeshShader);
 
 	glViewport(0, 450, 1600, 450);
-	for (auto sprite : sprites)
-		sprite->Draw(mSpriteShader);
-
+	mMeshShader->SetMatrix4Uniform("uView", mPlayer2->GetCamera()->GetView());
+	for (auto mesh : mGfw->GetMeshes())
+		mesh->Draw(mMeshShader);
 
 	glutSwapBuffers();
 }
@@ -87,4 +101,11 @@ void MainScene::Pause()
 void MainScene::Resume()
 {
 	Scene::Resume();
+}
+
+void MainScene::LoadData()
+{
+	mPlayer1 = new Player{ mGfw, Player::kP1 };
+	mPlayer2 = new Player{ mGfw, Player::kP2 };
+	mPlayer2->SetPosition(glm::vec3{ 3.0f, 0.0f, 0.0f });
 }

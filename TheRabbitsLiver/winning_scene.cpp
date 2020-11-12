@@ -18,7 +18,7 @@ WinningScene::WinningScene(Gfw* gfw)
 {
 	mRenderer = Renderer::Get();
 	mSpriteShader = mRenderer->GetShader("sprite");
-	mMeshShader = mRenderer->GetShader("basciMesh");
+	mMeshShader = mRenderer->GetShader("basicMesh");
 }
 
 void WinningScene::Enter()
