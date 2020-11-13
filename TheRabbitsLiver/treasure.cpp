@@ -1,13 +1,11 @@
 #include "treasure.h"
 
-#include <iostream>
-
 #include <glm/gtx/norm.hpp>
 
 #include "mesh_component.h"
 #include "mesh.h"
-
 #include "player.h"
+#include "sound_engine.h"
 
 Treasure::Treasure(Gfw* gfw, TreasureType type, Gfw::Layer layer)
 	: Actor{ gfw, layer },
@@ -25,8 +23,10 @@ void Treasure::UpdateActor()
 {
 	Actor::UpdateActor();
 
-	if (mPercentage > 5.0f)
+	if (mPercentage > 3.0f)
 	{
+		SoundEngine::Get()->Play("chest_opening.wav", 2.0f);
+
 		// Pop Items
 		mHeart->SetState(State::kDead);
 		SetState(State::kDead);

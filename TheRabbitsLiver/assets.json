@@ -62,6 +62,7 @@
     "waterfall.mp3"
   ],
   "wav": [
+    "chest_opening.wav",
     "gameover.wav",
     "jump.wav",
     "penguin_boom.wav",

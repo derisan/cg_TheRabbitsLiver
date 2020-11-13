@@ -13,7 +13,7 @@ Plane::Plane(Gfw* gfw, PlaneType type, int curStage, bool right, Gfw::Layer laye
 	mBox{ nullptr },
 	mType{ type },
 	mVehicleType{ Vehicle::kCar },
-	mCooldown{ 0.0f },
+	mCooldown{ Random::GetFloatRange(0.0f, 2.0f) },
 	mLeftOrRight{ Random::GetChoice(-1, 1) },
 	mDisabled{ false }
 {
