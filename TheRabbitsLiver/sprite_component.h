@@ -16,5 +16,7 @@ public:
 private:
     class VertexArray* mVertexArray;
     class Texture* mTexture;
+
+    Gfw::SpriteLayer mLayer;
 };
 

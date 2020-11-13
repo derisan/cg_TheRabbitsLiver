@@ -12,7 +12,8 @@
 SpriteComponent::SpriteComponent(Actor* owner, const std::string& file, Gfw::SpriteLayer layer)
 	: Component{ owner },
 	mVertexArray{ nullptr },
-	mTexture{ nullptr }
+	mTexture{ nullptr },
+	mLayer{ layer }
 {
 	mOwner->GetGfw()->AddSpriteAt(this, layer);
 
@@ -24,7 +25,7 @@ SpriteComponent::SpriteComponent(Actor* owner, const std::string& file, Gfw::Spr
 
 SpriteComponent::~SpriteComponent()
 {
-	mOwner->GetGfw()->RemoveSpriteAt(this);
+	mOwner->GetGfw()->RemoveSpriteAt(this, mLayer);
 }
 
 void SpriteComponent::Draw(Shader* shader)
