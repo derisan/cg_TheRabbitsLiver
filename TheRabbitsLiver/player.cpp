@@ -168,9 +168,7 @@ void Player::HitByCar()
 
 		if (mLives == 0)
 		{
-			new Sword{ mGfw, this };
-			mIsDead = true;
-			SetState(State::kPaused);
+			YouDie();
 		}
 	}
 }
@@ -206,4 +204,11 @@ void Player::GenerateLifeSprite(const std::string& file)
 		life->SetPosition(glm::vec3{ -0.9f, 0.4f - 0.3f * i, 0.0f });
 		mLifeGauges.emplace_back(life);
 	}
+}
+
+void Player::YouDie()
+{
+	new Sword{ mGfw, this };
+	mIsDead = true;
+	SetState(State::kPaused);
 }
