@@ -7,7 +7,8 @@ public:
     enum ParticleType
     {
         kFire,
-        kCarrot
+        kCarrot,
+        kHeart
     };
 
     Particle(Gfw* gfw, ParticleType type, const glm::vec3 startPoint, Gfw::Layer layer = Gfw::kDefault);

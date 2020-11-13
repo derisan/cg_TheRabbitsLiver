@@ -7,6 +7,7 @@
 
 #include "player.h"
 #include "particle.h"
+#include "tombstone.h"
 
 Sword::Sword(Gfw* gfw, Player* target, Gfw::Layer layer)
 	: Actor{ gfw, layer },
@@ -53,5 +54,7 @@ void Sword::UpdateActor()
 		SoundEngine::Get()->Play(soundFile);
 
 		SetState(State::kDead);
+
+		new Tombstone{ mGfw, mTarget };
 	}
 }

@@ -157,8 +157,14 @@ void Player::HitByCar()
 		SoundEngine::Get()->Stop("hit_sound.mp3");
 		SoundEngine::Get()->Play("hit_sound.mp3");
 
+		Particle::ParticleType type;
+		if (mType == Player::kP1)
+			type = Particle::kCarrot;
+		else
+			type = Particle::kHeart;
+
 		for (int i = 0; i < 5; ++i)
-			new Particle{ mGfw, Particle::kCarrot, GetPosition() };
+			new Particle{ mGfw, type, GetPosition() };
 
 		if (mLives >= 0)
 		{

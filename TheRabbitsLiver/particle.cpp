@@ -23,6 +23,11 @@ Particle::Particle(Gfw* gfw, ParticleType type, const glm::vec3 startPoint, Gfw:
 			file = "Assets/carrot.gpmesh";
 			SetScale(0.075f);
 			SetRotation(Random::GetFloatRange(0.0f, 360.0f));
+			break;
+		case kHeart:
+			file = "Assets/heart.gpmesh";
+			SetScale(0.01f);
+			break;
 	}
 	auto pos = startPoint + Random::GetVec3(-0.5f, 0.5f);
 	SetPosition(pos);
