@@ -63,9 +63,10 @@ void DeadScene::Draw()
 
 	// Draw all sprites
 	mSpriteShader->SetActive();
-	auto sprites = mGfw->GetSprites();
-	for (auto sprite : sprites)
-		sprite->Draw(mSpriteShader);
+	auto layers = mGfw->GetAllSprites();
+	for (auto sprites : layers)
+		for (auto sprite : sprites)
+			sprite->Draw(mSpriteShader);
 
 	glutSwapBuffers();
 }

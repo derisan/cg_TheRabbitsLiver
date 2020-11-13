@@ -95,9 +95,10 @@ void LoadingScene::Draw()
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
 	mSpriteShader->SetActive();
-	auto sprites = mGfw->GetSprites();
-	for (auto sprite : sprites)
-		sprite->Draw(mSpriteShader);
+	auto layers = mGfw->GetAllSprites();
+	for (auto sprites : layers)
+		for(auto sprite : sprites)
+			sprite->Draw(mSpriteShader);
 		
 	glutSwapBuffers();
 }

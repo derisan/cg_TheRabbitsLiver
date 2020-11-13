@@ -19,6 +19,7 @@
 
 Gfw::Gfw()
 	: mActors( 5 ),
+	mSprites( 3 ),
 	mScrWidth{ 0 },
 	mScrHeight{ 0 },
 	mShouldClose{ false },
@@ -228,14 +229,14 @@ void Gfw::RemoveMesh(MeshComponent* mesh)
 		mMeshes.erase(iter);
 }
 
-void Gfw::AddSprite(SpriteComponent* sprite)
+void Gfw::AddSpriteAt(SpriteComponent* sprite, SpriteLayer layer)
 {
-	mSprites.emplace_back(sprite);
+	mSprites[layer].emplace_back(sprite);
 }
 
-void Gfw::RemoveSprite(SpriteComponent* sprite)
+void Gfw::RemoveSpriteAt(SpriteComponent* sprite, SpriteLayer layer)
 {
-	auto iter = std::find(std::begin(mSprites), std::end(mSprites), sprite);
-	if (iter != std::end(mSprites))
-		mSprites.erase(iter);
+	auto iter = std::find(std::begin(mSprites[layer]), std::end(mSprites[layer]), sprite);
+	if (iter != std::end(mSprites[layer]))
+		mSprites[layer].erase(iter);
 }

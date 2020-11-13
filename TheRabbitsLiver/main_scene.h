@@ -24,7 +24,7 @@ public:
 	void CollisionCheck();
 
 	bool IsWin();
-	float GetMaxZ();
+	float GetBehindPlayerZPos();
 
 private:
 	std::vector<int> mStage;

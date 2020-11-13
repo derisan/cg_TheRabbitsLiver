@@ -8,7 +8,7 @@ class SpriteComponent:
     public Component
 {
 public:
-    SpriteComponent(class Actor* owner, const std::string& file);
+    SpriteComponent(class Actor* owner, const std::string& file, Gfw::SpriteLayer layer = Gfw::SpriteLayer::kOther);
     ~SpriteComponent();
 
     void Draw(class Shader* shader);

@@ -147,8 +147,8 @@ void MainScene::LoadData()
 
 void MainScene::CreatePlane()
 {
-	auto maxZ = GetMaxZ();
-	for (; mCurStage < -maxZ + 10; ++mCurStage)
+	auto zPos = GetBehindPlayerZPos();
+	for (; mCurStage < -zPos + 10; ++mCurStage)
 	{
 		auto plane = new Plane{ mGfw, static_cast<Plane::PlaneType>(mStage[mCurStage]), mCurStage };
 		plane->SetDisabled(true);
@@ -156,7 +156,7 @@ void MainScene::CreatePlane()
 	}
 }
 
-float MainScene::GetMaxZ()
+float MainScene::GetBehindPlayerZPos()
 {
 	const auto& p1Pos = mPlayer1->GetPosition();
 	const auto& p2Pos = mPlayer2->GetPosition();
@@ -170,7 +170,7 @@ void MainScene::CollisionCheck()
 {
 	const auto& p1Box = mPlayer1->GetBox()->GetWorldBox();
 	const auto& p2Box = mPlayer2->GetBox()->GetWorldBox();
-	auto maxZ = GetMaxZ();
+	auto zPos = GetBehindPlayerZPos();
 
 	// Collision check with vehicles
 	for (auto vehicle : mGfw->GetActorsAt(Gfw::Layer::kVehicle))
@@ -181,7 +181,7 @@ void MainScene::CollisionCheck()
 		auto vp = (Vehicle*)vehicle;
 
 		auto z = vp->GetPosition().z;
-		if (maxZ + 6.0f < z)
+		if (zPos + 6.0f < z)
 		{
 			vp->SetState(Actor::State::kDead);
 			continue;
@@ -218,7 +218,7 @@ void MainScene::CollisionCheck()
 		auto pp = (Plane*)plane;
 
 		auto z = pp->GetPosition().z;
-		if (maxZ + 6.0f < z)
+		if (zPos + 6.0f < z)
 		{
 			pp->SetState(Actor::State::kDead);
 			mPlayer1->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
@@ -245,7 +245,7 @@ void MainScene::CollisionCheck()
 		auto tp = (Tree*)tree;
 		auto z = tp->GetPosition().z;
 
-		if (maxZ + 6.0f < z)
+		if (zPos + 6.0f < z)
 		{
 			tp->SetState(Actor::State::kDead);
 			continue;
@@ -255,7 +255,7 @@ void MainScene::CollisionCheck()
 
 bool MainScene::IsWin()
 {
-	if (GetMaxZ() == -2.0f * (mStage.size() - 1))
+	if (GetBehindPlayerZPos() == -2.0f * (mStage.size() - 1))
 		return true;
 
 	return false;

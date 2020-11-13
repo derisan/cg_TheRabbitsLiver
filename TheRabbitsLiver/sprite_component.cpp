@@ -2,7 +2,6 @@
 
 #include <GL/glew.h>
 
-#include "gfw.h"
 #include "actor.h"
 #include "renderer.h"
 
@@ -10,12 +9,12 @@
 #include "vertexarray.h"
 #include "texture.h"
 
-SpriteComponent::SpriteComponent(Actor* owner, const std::string& file)
+SpriteComponent::SpriteComponent(Actor* owner, const std::string& file, Gfw::SpriteLayer layer)
 	: Component{ owner },
 	mVertexArray{ nullptr },
 	mTexture{ nullptr }
 {
-	mOwner->GetGfw()->AddSprite(this);
+	mOwner->GetGfw()->AddSpriteAt(this, layer);
 
 	auto renderer = Renderer::Get();
 
@@ -25,7 +24,7 @@ SpriteComponent::SpriteComponent(Actor* owner, const std::string& file)
 
 SpriteComponent::~SpriteComponent()
 {
-	mOwner->GetGfw()->RemoveSprite(this);
+	mOwner->GetGfw()->RemoveSpriteAt(this);
 }
 
 void SpriteComponent::Draw(Shader* shader)
