@@ -256,14 +256,18 @@ void MainScene::CollisionCheck()
 			continue;
 		}
 		
-		if (pp->GetType() != Plane::PlaneType::kWater)
+		if (pp->GetType() == Plane::PlaneType::kWater)
 			continue;
 
-		if (Intersects(p1Box, pp))	
-			mPlayer1->Fall();
+		if (Intersects(p1Box, pp))
+		{
+			mPlayer1->NotToFall();
+		}
 		
 		if (Intersects(p2Box, pp))
-			mPlayer2->Fall();
+		{
+			mPlayer2->NotToFall();
+		}
 	}
 
 	// Tree must die

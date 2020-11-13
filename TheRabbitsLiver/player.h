@@ -23,7 +23,7 @@ public:
     void CheckCollisionWithTree();
 
     // Collision process
-    void Fall();
+    void NotToFall();
     void OnBoard(class Vehicle* log);
     void HitByCar();
     void YouDie();
@@ -55,7 +55,6 @@ private:
     int mLives;
     float mInvincibleTime;
     bool mIsDead;
-    bool mIsFalling;
 
     std::vector<class Actor*> mLifeGauges;
 };

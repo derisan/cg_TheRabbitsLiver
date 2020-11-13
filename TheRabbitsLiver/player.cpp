@@ -22,8 +22,7 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	mPrevMovement{ 0.0f },
 	mLives{ 3 },
 	mInvincibleTime{ 0.0f },
-	mIsDead{ false },
-	mIsFalling{ false }
+	mIsDead{ false }
 {
 	std::string meshFile;
 	std::string lifeImgFile;
@@ -66,14 +65,11 @@ void Player::UpdateActor()
 	else if (pos.z < mBorder.z.y)
 		pos.z = mBorder.z.y;
 
-	if (mIsFalling)
+	pos.y -= 5.0f * mGfw->dt;
+	if (pos.y < -2.0f)
 	{
-		pos.y -= 7.5f * mGfw->dt;
-		if (pos.y < -7.0f)
-		{
-			mIsFalling = false;
-			YouDie();
-		}
+		SoundEngine::Get()->Play("waterfall.mp3", 2.0f);
+		YouDie();
 	}
 
 	SetPosition(pos);
@@ -145,9 +141,11 @@ void Player::PlayerTwoInput(unsigned char key)
 	SetPosition(pos);
 }
 
-void Player::Fall()
+void Player::NotToFall()
 {
-	mIsFalling = true;
+	auto pos = GetPosition();
+	pos.y = 0.0f;
+	SetPosition(pos);
 }
 
 void Player::OnBoard(Vehicle* log)
