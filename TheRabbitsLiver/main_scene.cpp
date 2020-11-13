@@ -20,6 +20,7 @@
 #include "vehicle.h"
 #include "tree.h"
 #include "treasure.h"
+#include "item.h"
 #include "camera_component.h"
 #include "mesh_component.h"
 #include "box_component.h"
@@ -328,6 +329,49 @@ void MainScene::CollisionCheck()
 		{
 			tp->SetState(Actor::State::kDead);
 			continue;
+		}
+	}
+
+	// Check with items
+	for (auto item : mGfw->GetActorsAt(Gfw::Layer::kItem))
+	{
+		if (item->GetState() != Actor::State::kActive)
+			continue;
+
+		auto ip = (Item*)item;
+		auto z = ip->GetPosition().z;
+
+		if (zPos + 6.0f < z)
+		{
+			ip->SetState(Actor::State::kDead);
+			continue;
+		}
+
+		const auto& itemBox = ip->GetBox()->GetWorldBox();
+		if (Intersects(p1Box, itemBox))
+		{
+			auto type = ip->GetType();
+			switch (type)
+			{
+				case Item::kPotion:
+					mPlayer1->IncreaseHp();
+					break;
+			}
+
+			ip->SetState(Actor::State::kDead);
+		}
+		
+		if (Intersects(p2Box, itemBox))
+		{
+			auto type = ip->GetType();
+			switch (type)
+			{
+				case Item::kPotion:
+					mPlayer2->IncreaseHp();
+					break;
+			}
+
+			ip->SetState(Actor::State::kDead);
 		}
 	}
 }

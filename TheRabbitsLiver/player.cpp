@@ -25,16 +25,15 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	mIsDead{ false }
 {
 	std::string meshFile;
-	std::string lifeImgFile;
 	if (type == PlayerType::kP1)
 	{
 		meshFile = "Assets/bunny.gpmesh";
-		lifeImgFile = "Assets/life_carrot.png";
+		mLifeImgFile = "Assets/life_carrot.png";
 	}
 	else
 	{
 		meshFile = "Assets/bird.gpmesh";
-		lifeImgFile = "Assets/life_heart.png";
+		mLifeImgFile = "Assets/life_heart.png";
 		SetScale(0.1f);
 	}
 
@@ -45,7 +44,7 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 
 	mCamera = new CameraComponent{ this };
 
-	GenerateLifeSprite(lifeImgFile);
+	GenerateLifeSprite(mLifeImgFile);
 }
 
 void Player::UpdateActor()
@@ -209,7 +208,7 @@ void Player::CheckCollisionWithTree()
 
 void Player::GenerateLifeSprite(const std::string& file)
 {
-	for (int i = 0; i < mLives; ++i)
+	for (size_t i = mLifeGauges.size(); i < mLives; ++i)
 	{
 		auto life = new Actor{ mGfw };
 		auto sc = new SpriteComponent{ life, file, static_cast<Gfw::SpriteLayer>(mType) };
@@ -235,13 +234,7 @@ void Player::Reincarnation()
 	mLives = 3;
 	mInvincibleTime = 1.5f;
 
-	std::string file;
-	if (mType == Player::kP1)
-		file = "Assets/life_carrot.png";
-	else
-		file = "Assets/life_heart.png";
-
-	GenerateLifeSprite(file);
+	GenerateLifeSprite(mLifeImgFile);
 
 	auto players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
 	for (auto player : players)
@@ -252,5 +245,14 @@ void Player::Reincarnation()
 
         const auto& pos = pp->GetPosition();
 		SetPosition(pos);
+	}
+}
+
+void Player::IncreaseHp()
+{
+	if (mLives < 3)
+	{
+		++mLives;
+		GenerateLifeSprite(mLifeImgFile);
 	}
 }

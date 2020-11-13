@@ -14,6 +14,7 @@ public:
 
     // Getters
     class BoxComponent* GetBox() const { return mBox; }
+    ItemType GetType() const { return mType; }
 
 private:
     class BoxComponent* mBox;

@@ -28,6 +28,7 @@ public:
     void HitByCar();
     void YouDie();
     void Reincarnation();
+    void IncreaseHp();
     
     // Getters
     class BoxComponent* GetBox() const { return mBox; }
@@ -55,7 +56,9 @@ private:
     int mLives;
     float mInvincibleTime;
     bool mIsDead;
-
+    std::string mLifeImgFile;
     std::vector<class Actor*> mLifeGauges;
+
+    const int maxLife{ 3 };
 };
 
