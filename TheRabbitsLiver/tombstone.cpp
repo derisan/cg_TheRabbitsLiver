@@ -16,13 +16,13 @@ Tombstone::Tombstone(Gfw* gfw, Player* target, Gfw::Layer layer)
 	mTarget{ target },
 	mPercentage{ 0.0f }
 {
-	auto mc = new MeshComponent{ this, "Assets/skull.gpmesh" };
+	auto mc = new MeshComponent{ this, "Assets/heart.gpmesh" };
 
 	const auto& pos = mTarget->GetPosition();
 
-	SetScale(0.3f);
+	SetScale(0.01f);
 	SetRotation(180.0f);
-	SetPosition(glm::vec3{ pos.x - 1.0f, pos.y, pos.z });
+	SetPosition(glm::vec3{ pos.x, pos.y + 3.0f, pos.z });
 }
 
 void Tombstone::UpdateActor()
@@ -50,8 +50,10 @@ void Tombstone::ActorInput(unsigned char key)
 			if (pp->GetType() == mTarget->GetType())
 				continue;
 
-			if (glm::distance2(pp->GetPosition(), GetPosition()) <= 5.0f)
+			if (glm::distance2(pp->GetPosition(), GetPosition()) <= 13.5f)
 				mPercentage += 2.0f * mGfw->dt;
+
+			SetScale(mPercentage * 0.005f);
 		}
 	}
 }
