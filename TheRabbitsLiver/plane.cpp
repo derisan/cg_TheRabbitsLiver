@@ -97,6 +97,9 @@ void Plane::GenerateTree()
 
 void Plane::GenerateTreasure()
 {
+	//if (Random::GetFloatRange(0.0f, 1.0f) > 0.4f)
+	//	return;
+
 	const auto& pos = GetPosition();
 	auto xPos = Random::GetShuffledArray(-12, 12, 0);
 

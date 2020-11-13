@@ -19,6 +19,7 @@
 #include "plane.h"
 #include "vehicle.h"
 #include "tree.h"
+#include "treasure.h"
 #include "camera_component.h"
 #include "mesh_component.h"
 #include "box_component.h"
@@ -267,7 +268,7 @@ void MainScene::CollisionCheck()
 		}
 	}
 
-	// Collision check with water planes
+	// Collision check with planes
 	for (auto plane : mGfw->GetActorsAt(Gfw::Layer::kPlane))
 	{
 		if (plane->GetState() != Actor::State::kActive)
@@ -305,6 +306,22 @@ void MainScene::CollisionCheck()
 			continue;
 
 		auto tp = (Tree*)tree;
+		auto z = tp->GetPosition().z;
+
+		if (zPos + 6.0f < z)
+		{
+			tp->SetState(Actor::State::kDead);
+			continue;
+		}
+	}
+
+	// Treasure must die
+	for (auto trea : mGfw->GetActorsAt(Gfw::Layer::kTreasure))
+	{
+		if (trea->GetState() != Actor::State::kActive)
+			continue;
+
+		auto tp = (Treasure*)trea;
 		auto z = tp->GetPosition().z;
 
 		if (zPos + 6.0f < z)

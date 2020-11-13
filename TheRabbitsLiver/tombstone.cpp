@@ -1,7 +1,5 @@
 #include "tombstone.h"
 
-#include <iostream>
-
 #include <glm/gtx/norm.hpp>
 
 #include "mesh_component.h"
@@ -21,7 +19,6 @@ Tombstone::Tombstone(Gfw* gfw, Player* target, Gfw::Layer layer)
 	const auto& pos = mTarget->GetPosition();
 
 	SetScale(0.02f);
-	SetRotation(180.0f);
 	SetPosition(glm::vec3{ pos.x, 3.0f, pos.z });
 }
 
@@ -51,9 +48,10 @@ void Tombstone::ActorInput(unsigned char key)
 				continue;
 
 			if (glm::distance2(pp->GetPosition(), GetPosition()) <= 15.0f)
+			{
 				mPercentage += 2.0f * mGfw->dt;
-
-			SetScale(mPercentage * 0.005f);
+				SetScale(mPercentage * 0.005f);
+			}
 		}
 	}
 }

@@ -11,9 +11,17 @@ public:
 
     Treasure(Gfw* gfw, TreasureType type, Gfw::Layer layer = Gfw::Layer::kTreasure);
 
+    void UpdateActor() override;
+    void ActorInput(unsigned char key) override;
+
+    // Getters
+    TreasureType GetType() const { return mType; }
+
 private:
-    class BoxComponent* mBox;
-    
+    class Actor* mHeart;
+
     TreasureType mType;
+   
+    float mPercentage;
 };
 
