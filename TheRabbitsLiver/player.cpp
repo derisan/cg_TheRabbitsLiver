@@ -10,6 +10,7 @@
 #include "vehicle.h"
 #include "tree.h"
 #include "particle.h"
+#include "sword.h"
 
 
 Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
@@ -20,7 +21,8 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	mBorder{ {-24.0f, 24.0f}, {0.0f, -16.0f} },
 	mPrevMovement{ 0.0f },
 	mLives{ 3 },
-	mInvincibleTime{ 0.0f }
+	mInvincibleTime{ 0.0f },
+	mIsDead{ false }
 {
 	std::string meshFile;
 	std::string lifeImgFile;
@@ -163,10 +165,14 @@ void Player::HitByCar()
 			mLifeGauges[mLives]->SetState(State::kDead);
 			mLifeGauges.pop_back();
 		}
-	}
 
-	if (mLives == 0)
-		;
+		if (mLives == 0)
+		{
+			new Sword{ mGfw, this };
+			mIsDead = true;
+			SetState(State::kPaused);
+		}
+	}
 }
 
 void Player::CheckCollisionWithTree()

@@ -31,6 +31,7 @@ public:
     class BoxComponent* GetBox() const { return mBox; }
     class CameraComponent* GetCamera() const { return mCamera; }
     PlayerType GetType() const { return mType; }
+    bool GetIsDead() const { return mIsDead; }
     
     // Setters
     void SetZBorder(const glm::vec2 z) { mBorder.z = z; }
@@ -51,6 +52,7 @@ private:
     glm::vec3 mPrevMovement;
     int mLives;
     float mInvincibleTime;
+    bool mIsDead;
 
     std::vector<class Actor*> mLifeGauges;
 };
