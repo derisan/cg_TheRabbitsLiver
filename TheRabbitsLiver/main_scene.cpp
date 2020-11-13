@@ -27,14 +27,17 @@ MainScene::MainScene(Gfw* gfw)
 	: Scene{ gfw },
 	mRenderer{ nullptr },
 	mSpriteShader{ nullptr },
-	mMeshShader{ nullptr },
+	mPhongShader{ nullptr },
 	mPlayer1{ nullptr },
 	mPlayer2{ nullptr },
-	mCurStage{ 0 }
+	mCurStage{ 0 },
+	mDirLightYPos{ -20.0f },
+	mIsNight{ false },
+	mChangesLightYpos{ false }
 {
 	mRenderer = Renderer::Get();
 	mSpriteShader = mRenderer->GetShader("sprite");
-	mMeshShader = mRenderer->GetShader("basicMesh");
+	mPhongShader = mRenderer->GetShader("phong");
 }
 
 void MainScene::Enter()
@@ -45,8 +48,8 @@ void MainScene::Enter()
 	glm::mat4 proj{ 1.0f };
 	proj = glm::perspective(45.0f, static_cast<float>(GetGfw()->GetScrWidth()) / GetGfw()->GetScrHeight(),
 		0.1f, 100.0f);
-	mMeshShader->SetActive();
-	mMeshShader->SetMatrix4Uniform("uProj", proj);
+	mPhongShader->SetActive();
+	mPhongShader->SetMatrix4Uniform("uProj", proj);
 
 	mCurStage = 0;
 
@@ -69,6 +72,16 @@ void MainScene::ProcessInput(unsigned char key)
 		mGfw->ChangeScene("dead");
 	else if (key == 't')
 		mGfw->ChangeScene("winning");
+	else if (key == 'g' || key == 'G')
+	{
+		mIsNight = !mIsNight;
+		mChangesLightYpos = !mChangesLightYpos;
+
+		if (mIsNight)
+			SoundEngine::Get()->Play("owl.mp3");
+		else
+			SoundEngine::Get()->Play("chicken.mp3");
+	}
 	else if (key == 'p' || key == 'P')
 		Pause();
 	else if (key == 'r' || key == 'R')
@@ -87,6 +100,17 @@ void MainScene::Update()
 
 	if (mPlayer1->GetIsDead() && mPlayer2->GetIsDead())
 		mGfw->ChangeScene("dead");
+
+	if (mChangesLightYpos)
+	{
+		if (mIsNight)
+			mDirLightYPos += mGfw->dt * 12.5f;
+		else
+			mDirLightYPos -= mGfw->dt * 12.5f;
+
+		if (mDirLightYPos < -20.0f || mDirLightYPos > 20.0f)
+			mChangesLightYpos = false;
+	}
 }
 
 void MainScene::Draw()
@@ -98,11 +122,13 @@ void MainScene::Draw()
 	// Render bottom screen
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	mMeshShader->SetActive();
+	mPhongShader->SetActive();
+	auto camera = mPlayer1->GetCamera();
+	SetLightUniforms(camera->GetCameraPos());
 	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight() / 2);
-	mMeshShader->SetMatrix4Uniform("uView", mPlayer1->GetCamera()->GetView());
+	mPhongShader->SetMatrix4Uniform("uView", camera->GetView());
 	for (auto mesh : mGfw->GetMeshes())
-		mesh->Draw(mMeshShader);
+		mesh->Draw(mPhongShader);
 
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -116,11 +142,13 @@ void MainScene::Draw()
 	// Render Top screen
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	mMeshShader->SetActive();
+	mPhongShader->SetActive();
+	camera = mPlayer2->GetCamera();
+	SetLightUniforms(camera->GetCameraPos());
 	glViewport(0, mGfw->GetScrHeight() / 2, mGfw->GetScrWidth(), mGfw->GetScrHeight() / 2);
-	mMeshShader->SetMatrix4Uniform("uView", mPlayer2->GetCamera()->GetView());
+	mPhongShader->SetMatrix4Uniform("uView", camera->GetView());
 	for (auto mesh : mGfw->GetMeshes())
-		mesh->Draw(mMeshShader);
+		mesh->Draw(mPhongShader);
 
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -293,4 +321,63 @@ bool MainScene::IsWin()
 		return true;
 
 	return false;
+}
+
+void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
+{
+	// Directional light
+	mPhongShader->SetVectorUniform("uViewPos", cameraPos);
+	mPhongShader->SetVectorUniform("uDirLight.direction", glm::vec3{ -24.0f, mDirLightYPos, GetBehindPlayerZPos() });
+	mPhongShader->SetVectorUniform("uDirLight.ambient", glm::vec3{ 0.0f });
+	mPhongShader->SetVectorUniform("uDirLight.diffuse", glm::vec3{ 1.0f });
+	mPhongShader->SetVectorUniform("uDirLight.specular", glm::vec3{ 1.0f });
+
+	
+	// Spot light
+	int curVehicles{ 0 };
+	const int spotLimit{ 10 };
+	auto vehicles = mGfw->GetActorsAt(Gfw::Layer::kVehicle);
+	for (auto vehicle : vehicles)
+	{
+		if (curVehicles >= spotLimit)
+			break;
+
+		auto vp = (Vehicle*)vehicle;
+		if (vp->GetType() == Vehicle::kLog)
+			continue;
+		
+		const auto& pos = vp->GetPosition();
+		if (fabs(pos.z - GetBehindPlayerZPos() > 12.0f))
+			continue;
+
+		std::string path = "uSpotLights[" + std::to_string(curVehicles) + "].";
+		mPhongShader->SetVectorUniform(path + "position", vp->GetPosition());
+		auto direction = -vp->GetRight() + glm::vec3{ 0.0f, -0.1f, 0.0f };
+		mPhongShader->SetVectorUniform(path + "direction", direction);
+		mPhongShader->SetVectorUniform(path + "ambient", glm::vec3{ 0.3f });
+		mPhongShader->SetVectorUniform(path + "diffuse", glm::vec3{ 1.0f });
+		mPhongShader->SetVectorUniform(path + "specular", glm::vec3{ 1.0f });
+		mPhongShader->SetFloatUniform(path + "constant", 1.0f);
+		mPhongShader->SetFloatUniform(path + "linear", 0.0045f);
+		mPhongShader->SetFloatUniform(path + "quadratic", 0.0075f);
+		mPhongShader->SetFloatUniform(path + "cutOff", glm::cos(glm::radians(12.5f)));
+		mPhongShader->SetFloatUniform(path + "outerCutOff", glm::cos(glm::radians(17.5f)));
+
+		++curVehicles;
+	}
+
+	for (int i = curVehicles; i < spotLimit; ++i)
+	{
+		std::string path = "uSpotLights[" + std::to_string(i) + "].";
+		mPhongShader->SetVectorUniform(path + "position", glm::vec3{ 0.0f });
+		mPhongShader->SetVectorUniform(path + "direction", glm::vec3{ 0.0f });
+		mPhongShader->SetVectorUniform(path + "ambient", glm::vec3{ 0.0f });
+		mPhongShader->SetVectorUniform(path + "diffuse", glm::vec3{ 1.0f });
+		mPhongShader->SetVectorUniform(path + "specular", glm::vec3{ 1.0f });
+		mPhongShader->SetFloatUniform(path + "constant", 1.0f);
+		mPhongShader->SetFloatUniform(path + "linear", 0.027f);
+		mPhongShader->SetFloatUniform(path + "quadratic", 0.0028f);
+		mPhongShader->SetFloatUniform(path + "cutOff", glm::cos(glm::radians(12.5f)));
+		mPhongShader->SetFloatUniform(path + "outerCutOff", glm::cos(glm::radians(17.5f)));
+	}
 }

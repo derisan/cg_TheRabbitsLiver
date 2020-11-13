@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include <glm/vec3.hpp>
+
 class MainScene:
     public Scene
 {
@@ -22,6 +24,7 @@ public:
 	void LoadData();
 	void CreatePlane();
 	void CollisionCheck();
+	void SetLightUniforms(const glm::vec3& cameraPos);
 
 	bool IsWin();
 	float GetBehindPlayerZPos();
@@ -31,11 +34,14 @@ private:
 
 	class Renderer* mRenderer;
 	class Shader* mSpriteShader;
-	class Shader* mMeshShader;
+	class Shader* mPhongShader;
 
 	class Player* mPlayer1;
 	class Player* mPlayer2;
 
 	int mCurStage;
+	float mDirLightYPos;
+	bool mIsNight;
+	bool mChangesLightYpos;
 };
 
