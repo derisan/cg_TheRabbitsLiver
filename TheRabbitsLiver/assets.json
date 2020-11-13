@@ -63,6 +63,7 @@
   ],
   "wav": [
     "chest_opening.wav",
+    "drinking.wav",
     "gameover.wav",
     "jump.wav",
     "penguin_boom.wav",

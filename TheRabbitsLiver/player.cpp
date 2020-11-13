@@ -250,6 +250,8 @@ void Player::Reincarnation()
 
 void Player::IncreaseHp()
 {
+	SoundEngine::Get()->Play("drinking.wav", 2.0f);
+
 	if (mLives < 3)
 	{
 		++mLives;
