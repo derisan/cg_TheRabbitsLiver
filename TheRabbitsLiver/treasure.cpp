@@ -6,6 +6,8 @@
 #include "mesh.h"
 #include "player.h"
 #include "sound_engine.h"
+#include "item.h"
+#include "random.h"
 
 Treasure::Treasure(Gfw* gfw, Gfw::Layer layer)
 	: Actor{ gfw, layer },
@@ -25,6 +27,9 @@ void Treasure::UpdateActor()
 	if (mPercentage > 3.0f)
 	{
 		SoundEngine::Get()->Play("chest_opening.wav", 2.0f);
+
+		auto item = new Item{ mGfw };
+		item->SetPosition(GetPosition());
 
 		// Pop Items
 		mHeart->SetState(State::kDead);
