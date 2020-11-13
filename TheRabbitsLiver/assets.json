@@ -24,6 +24,7 @@
     "bus.png",
     "car.png",
     "carrot.png",
+    "crow_frame.png",
     "deadscreen.png",
     "fireball.png",
     "grass.png",
@@ -32,6 +33,7 @@
     "log.png",
     "penguin.png",
     "pumpkin.png",
+    "rabbit_frame.png",
     "railroad.png",
     "road.png",
     "sword.png",
@@ -44,11 +46,11 @@
     "BlueWorld.mp3",
     "chicken.mp3",
     "happy.mp3",
+    "hit_sound.mp3",
     "owl.mp3",
     "victory.mp3"
   ],
   "wav": [
-    "DragonHawkDeath1.wav",
     "gameover.wav",
     "jump.wav",
     "penguin_boom.wav",

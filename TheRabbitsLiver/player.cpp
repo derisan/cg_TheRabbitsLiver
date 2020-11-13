@@ -152,8 +152,8 @@ void Player::HitByCar()
 	{
 		--mLives;
 		mInvincibleTime = 1.5f;
-		SoundEngine::Get()->Stop("DragonHawkDeath1.wav");
-		SoundEngine::Get()->Play("DragonHawkDeath1.wav");
+		SoundEngine::Get()->Stop("hit_sound.mp3");
+		SoundEngine::Get()->Play("hit_sound.mp3");
 
 		for (int i = 0; i < 5; ++i)
 			new Particle{ mGfw, Particle::kCarrot, GetPosition() };
