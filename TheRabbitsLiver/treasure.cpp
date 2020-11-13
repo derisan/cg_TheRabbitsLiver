@@ -7,10 +7,9 @@
 #include "player.h"
 #include "sound_engine.h"
 
-Treasure::Treasure(Gfw* gfw, TreasureType type, Gfw::Layer layer)
+Treasure::Treasure(Gfw* gfw, Gfw::Layer layer)
 	: Actor{ gfw, layer },
 	mHeart{ nullptr },
-	mType{ type },
 	mPercentage{ 0.0f }
 {
 	auto mc = new MeshComponent{ this, "Assets/chest.gpmesh" };

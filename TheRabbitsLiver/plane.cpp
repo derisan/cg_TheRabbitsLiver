@@ -103,6 +103,6 @@ void Plane::GenerateTreasure()
 	const auto& pos = GetPosition();
 	auto xPos = Random::GetShuffledArray(-12, 12, 0);
 
-	auto treasure = new Treasure{ mGfw, static_cast<Treasure::TreasureType>(Random::GetIntRange(0, 0)) };
+	auto treasure = new Treasure{ mGfw };
 	treasure->SetPosition(glm::vec3{ xPos[0] * 2.0f, 0.0f, pos.z });
 }

@@ -18,7 +18,7 @@
 #include "random.h"
 
 Gfw::Gfw()
-	: mActors( 6 ),
+	: mActors( 7 ),
 	mSprites( 3 ),
 	mScrWidth{ 0 },
 	mScrHeight{ 0 },

@@ -15,6 +15,7 @@ public:
 		kVehicle,
 		kPlane,
 		kTree,
+		kItem,
 		kTreasure,
 		kDefault
 	};

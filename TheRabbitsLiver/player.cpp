@@ -73,6 +73,9 @@ void Player::UpdateActor()
 	}
 
 	SetPosition(pos);
+
+	if (mLives <= 0)
+		YouDie();
 }
 
 void Player::ActorInput(unsigned char key)
@@ -179,11 +182,6 @@ void Player::HitByCar()
 		{
 			mLifeGauges[mLives]->SetState(State::kDead);
 			mLifeGauges.pop_back();
-		}
-
-		if (mLives == 0)
-		{
-			YouDie();
 		}
 	}
 }
