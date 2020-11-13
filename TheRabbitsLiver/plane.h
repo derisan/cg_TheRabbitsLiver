@@ -22,6 +22,7 @@ public:
 
     void GenerateVehicle();
     void GenerateTree();
+    void GenerateTreasure();
 
     // Getters
     class BoxComponent* GetBox() const { return mBox; }

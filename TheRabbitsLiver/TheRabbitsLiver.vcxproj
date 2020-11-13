@@ -167,6 +167,7 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="title_scene.cpp" />
     <ClCompile Include="tombstone.cpp" />
+    <ClCompile Include="treasure.cpp" />
     <ClCompile Include="tree.cpp" />
     <ClCompile Include="vehicle.cpp" />
     <ClCompile Include="vertexarray.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="title_scene.h" />
     <ClInclude Include="tombstone.h" />
+    <ClInclude Include="treasure.h" />
     <ClInclude Include="tree.h" />
     <ClInclude Include="vehicle.h" />
     <ClInclude Include="vertexarray.h" />

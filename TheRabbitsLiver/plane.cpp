@@ -6,6 +6,7 @@
 #include "random.h"
 
 #include "tree.h"
+#include "treasure.h"
 
 Plane::Plane(Gfw* gfw, PlaneType type, int curStage, bool right, Gfw::Layer layer)
 	: Actor{ gfw, layer },
@@ -53,6 +54,8 @@ Plane::Plane(Gfw* gfw, PlaneType type, int curStage, bool right, Gfw::Layer laye
 
 	if (mType == PlaneType::kGrass)
 		GenerateTree();
+	else if (mType == PlaneType::kRailroad)
+		GenerateTreasure();
 }
 
 void Plane::UpdateActor()
@@ -90,4 +93,13 @@ void Plane::GenerateTree()
 		auto tree = new Tree{ mGfw, static_cast<Tree::TreeType>(Random::GetIntRange(0, 0)) };
 		tree->SetPosition(glm::vec3{ xPos[i] * 2.0f, pos.y + 0.2f, pos.z });
 	}
+}
+
+void Plane::GenerateTreasure()
+{
+	const auto& pos = GetPosition();
+	auto xPos = Random::GetShuffledArray(-12, 12, 0);
+
+	auto treasure = new Treasure{ mGfw, static_cast<Treasure::TreasureType>(Random::GetIntRange(0, 0)) };
+	treasure->SetPosition(glm::vec3{ xPos[0] * 2.0f, 0.0f, pos.z });
 }
