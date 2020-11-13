@@ -359,6 +359,9 @@ void MainScene::CollisionCheck()
 				case Item::kPoison:
 					mPlayer1->DecreaseHp();
 					break;
+				case Item::kBomb:
+					mPlayer1->DropBomb();
+					break;
 			}
 
 			ip->SetState(Actor::State::kDead);
@@ -374,6 +377,9 @@ void MainScene::CollisionCheck()
 					break;
 				case Item::kPoison:
 					mPlayer2->DecreaseHp();
+					break;
+				case Item::kBomb:
+					mPlayer2->DropBomb();
 					break;
 			}
 

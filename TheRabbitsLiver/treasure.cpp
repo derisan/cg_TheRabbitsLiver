@@ -53,6 +53,9 @@ void Treasure::ActorInput(unsigned char key)
 		auto players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
 		for (auto player : players)
 		{
+			if (player->GetState() != Actor::State::kActive)
+				continue;
+
 			auto pp = (Player*)player;
 
 			if (glm::distance2(pp->GetPosition(), GetPosition()) <= 6.0f)

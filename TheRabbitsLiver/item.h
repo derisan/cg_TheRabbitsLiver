@@ -7,7 +7,8 @@ public:
     enum ItemType
     {
         kPotion,
-        kPoison
+        kPoison,
+        kBomb
     };
 
     Item(Gfw* gfw, Gfw::Layer layer = Gfw::Layer::kItem);
