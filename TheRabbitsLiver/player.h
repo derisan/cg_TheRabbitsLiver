@@ -17,6 +17,8 @@ public:
     void PlayerOneInput(unsigned char key);
     void PlayerTwoInput(unsigned char key);
 
+    void GenerateLifeSprite(const std::string& file);
+
     // Collision detect
     void CheckCollisionWithTree();
 
@@ -49,5 +51,7 @@ private:
     glm::vec3 mPrevMovement;
     int mLives;
     float mInvincibleTime;
+
+    std::vector<class Actor*> mLifeGauges;
 };
 

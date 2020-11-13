@@ -20,9 +20,9 @@ public:
 
 	enum SpriteLayer
 	{
-		kOther,
+		kBottom,
 		kTop,
-		kBottom
+		kOther
 	};
 
 	Gfw();

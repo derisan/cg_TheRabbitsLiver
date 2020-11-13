@@ -2,6 +2,7 @@
 
 #include "mesh_component.h"
 #include "box_component.h"
+#include "sprite_component.h"
 #include "camera_component.h"
 #include "mesh.h"
 #include "sound_engine.h"
@@ -21,23 +22,28 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	mLives{ 3 },
 	mInvincibleTime{ 0.0f }
 {
-	std::string file;
+	std::string meshFile;
+	std::string lifeImgFile;
 	if (type == PlayerType::kP1)
 	{
-		file = "Assets/bunny.gpmesh";
+		meshFile = "Assets/bunny.gpmesh";
+		lifeImgFile = "Assets/life_carrot.png";
 	}
 	else
 	{
-		file = "Assets/bird.gpmesh";
+		meshFile = "Assets/bird.gpmesh";
+		lifeImgFile = "Assets/life_heart.png";
 		SetScale(0.1f);
 	}
 
-	auto mc = new MeshComponent{ this, file };
+	auto mc = new MeshComponent{ this, meshFile };
 
 	mBox = new BoxComponent{ this };
 	mBox->SetObjectBox(mc->GetMesh()->GetBox());
 
 	mCamera = new CameraComponent{ this };
+
+	GenerateLifeSprite(lifeImgFile);
 }
 
 void Player::UpdateActor()
@@ -151,6 +157,12 @@ void Player::HitByCar()
 
 		for (int i = 0; i < 5; ++i)
 			new Particle{ mGfw, Particle::kCarrot, GetPosition() };
+
+		if (mLives >= 0)
+		{
+			mLifeGauges[mLives]->SetState(State::kDead);
+			mLifeGauges.pop_back();
+		}
 	}
 
 	if (mLives == 0)
@@ -175,5 +187,17 @@ void Player::CheckCollisionWithTree()
 			SetPosition(pos);
 			break;
 		}
+	}
+}
+
+void Player::GenerateLifeSprite(const std::string& file)
+{
+	for (int i = 0; i < mLives; ++i)
+	{
+		auto life = new Actor{ mGfw };
+		auto sc = new SpriteComponent{ life, file, static_cast<Gfw::SpriteLayer>(mType) };
+		life->SetScale(0.3f);
+		life->SetPosition(glm::vec3{ -0.9f, 0.4f - 0.3f * i, 0.0f });
+		mLifeGauges.emplace_back(life);
 	}
 }
