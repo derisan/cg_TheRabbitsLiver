@@ -20,9 +20,9 @@ Tombstone::Tombstone(Gfw* gfw, Player* target, Gfw::Layer layer)
 
 	const auto& pos = mTarget->GetPosition();
 
-	SetScale(0.01f);
+	SetScale(0.02f);
 	SetRotation(180.0f);
-	SetPosition(glm::vec3{ pos.x, pos.y + 3.0f, pos.z });
+	SetPosition(glm::vec3{ pos.x, 3.0f, pos.z });
 }
 
 void Tombstone::UpdateActor()

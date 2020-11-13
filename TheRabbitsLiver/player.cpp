@@ -22,7 +22,8 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	mPrevMovement{ 0.0f },
 	mLives{ 3 },
 	mInvincibleTime{ 0.0f },
-	mIsDead{ false }
+	mIsDead{ false },
+	mIsFalling{ false }
 {
 	std::string meshFile;
 	std::string lifeImgFile;
@@ -64,6 +65,16 @@ void Player::UpdateActor()
 		pos.z = mBorder.z.x;
 	else if (pos.z < mBorder.z.y)
 		pos.z = mBorder.z.y;
+
+	if (mIsFalling)
+	{
+		pos.y -= 7.5f * mGfw->dt;
+		if (pos.y < -7.0f)
+		{
+			mIsFalling = false;
+			YouDie();
+		}
+	}
 
 	SetPosition(pos);
 }
@@ -136,7 +147,7 @@ void Player::PlayerTwoInput(unsigned char key)
 
 void Player::Fall()
 {
-	// Do something when player steps into water
+	mIsFalling = true;
 }
 
 void Player::OnBoard(Vehicle* log)
@@ -234,4 +245,15 @@ void Player::Reincarnation()
 		file = "Assets/life_heart.png";
 
 	GenerateLifeSprite(file);
+
+	auto players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
+	for (auto player : players)
+	{
+		auto pp = (Player*)player;
+		if (pp->GetType() == mType)
+			continue;
+
+        const auto& pos = pp->GetPosition();
+		SetPosition(pos);
+	}
 }

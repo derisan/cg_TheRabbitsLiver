@@ -55,6 +55,7 @@ private:
     int mLives;
     float mInvincibleTime;
     bool mIsDead;
+    bool mIsFalling;
 
     std::vector<class Actor*> mLifeGauges;
 };
