@@ -93,12 +93,22 @@ void MainScene::Draw()
 
 
 	// Render bottom screen
+	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	mMeshShader->SetActive();
 	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight() / 2);
 	mMeshShader->SetMatrix4Uniform("uView", mPlayer1->GetCamera()->GetView());
 	for (auto mesh : mGfw->GetMeshes())
 		mesh->Draw(mMeshShader);
+
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+	mSpriteShader->SetActive();
+	auto sprites = mGfw->GetSpritesAt(Gfw::SpriteLayer::kBottom);
+	for (auto sprite : sprites)
+		sprite->Draw(mSpriteShader);
 
 	// Render Top screen
 	glDisable(GL_BLEND);
@@ -108,6 +118,15 @@ void MainScene::Draw()
 	mMeshShader->SetMatrix4Uniform("uView", mPlayer2->GetCamera()->GetView());
 	for (auto mesh : mGfw->GetMeshes())
 		mesh->Draw(mMeshShader);
+
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+	mSpriteShader->SetActive();
+	sprites = mGfw->GetSpritesAt(Gfw::SpriteLayer::kTop);
+	for (auto sprite : sprites)
+		sprite->Draw(mSpriteShader);
 
 
 	glutSwapBuffers();
@@ -127,6 +146,14 @@ void MainScene::LoadData()
 {
 	mPlayer1 = new Player{ mGfw, Player::kP1 };
 	mPlayer2 = new Player{ mGfw, Player::kP2 };
+
+	auto frame = new Actor{ mGfw };
+	frame->SetScale(2.0f);
+	auto sc = new SpriteComponent{ frame, "Assets/rabbit_frame.png", Gfw::SpriteLayer::kBottom};
+
+	frame = new Actor{ mGfw };
+	frame->SetScale(2.0f);
+	sc = new SpriteComponent{ frame, "Assets/crow_frame.png", Gfw::SpriteLayer::kTop };
 	
 	// Read stage from file
 	std::ifstream file{ "Assets/stage.txt" };
