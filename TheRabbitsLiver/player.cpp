@@ -218,3 +218,20 @@ void Player::YouDie()
 	mIsDead = true;
 	SetState(State::kPaused);
 }
+
+void Player::Reincarnation()
+{
+	SoundEngine::Get()->Play("reincarnation.wav");
+
+	SetState(State::kActive);
+	mIsDead = false;
+	mLives = 3;
+
+	std::string file;
+	if (mType == Player::kP1)
+		file = "Assets/life_carrot.png";
+	else
+		file = "Assets/life_heart.png";
+
+	GenerateLifeSprite(file);
+}

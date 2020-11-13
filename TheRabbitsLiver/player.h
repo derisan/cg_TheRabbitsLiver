@@ -27,6 +27,7 @@ public:
     void OnBoard(class Vehicle* log);
     void HitByCar();
     void YouDie();
+    void Reincarnation();
     
     // Getters
     class BoxComponent* GetBox() const { return mBox; }
