@@ -235,6 +235,7 @@ void Player::Reincarnation()
 	SetState(State::kActive);
 	mIsDead = false;
 	mLives = 3;
+	mInvincibleTime = 1.5f;
 
 	std::string file;
 	if (mType == Player::kP1)

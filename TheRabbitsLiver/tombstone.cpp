@@ -50,7 +50,7 @@ void Tombstone::ActorInput(unsigned char key)
 			if (pp->GetType() == mTarget->GetType())
 				continue;
 
-			if (glm::distance2(pp->GetPosition(), GetPosition()) <= 13.5f)
+			if (glm::distance2(pp->GetPosition(), GetPosition()) <= 15.0f)
 				mPercentage += 2.0f * mGfw->dt;
 
 			SetScale(mPercentage * 0.005f);

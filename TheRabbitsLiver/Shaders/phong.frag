@@ -33,7 +33,7 @@ in vec3 fragNormal;
 uniform vec3 uViewPos;
 uniform sampler2D uTexture;
 
-#define NR_SPOT_LIGHTS 10
+#define NR_SPOT_LIGHTS 20
 uniform DirLight uDirLight;
 uniform SpotLight uSpotLights[NR_SPOT_LIGHTS];
 
