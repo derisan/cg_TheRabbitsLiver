@@ -9,6 +9,8 @@ public:
     void UpdateActor() override;
     void ActorInput(unsigned char key) override;
 
+    void GenerateItem();
+
 private:
     class Actor* mHeart;
 

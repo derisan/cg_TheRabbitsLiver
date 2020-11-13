@@ -29,6 +29,7 @@ public:
     void YouDie();
     void Reincarnation();
     void IncreaseHp();
+    void DecreaseHp();
     
     // Getters
     class BoxComponent* GetBox() const { return mBox; }

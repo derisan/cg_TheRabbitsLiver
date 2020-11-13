@@ -258,3 +258,16 @@ void Player::IncreaseHp()
 		GenerateLifeSprite(mLifeImgFile);
 	}
 }
+
+void Player::DecreaseHp()
+{
+	SoundEngine::Get()->Play("drinking_poison.mp3", 2.0f);
+
+	if (mLives > 0)
+	{
+		--mLives;
+		mLifeGauges[mLives]->SetState(State::kDead);
+		mLifeGauges.pop_back();
+		GenerateLifeSprite(mLifeImgFile);
+	}
+}

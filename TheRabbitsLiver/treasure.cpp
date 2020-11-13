@@ -28,8 +28,7 @@ void Treasure::UpdateActor()
 	{
 		SoundEngine::Get()->Play("chest_opening.wav", 2.0f);
 
-		auto item = new Item{ mGfw };
-		item->SetPosition(GetPosition());
+		GenerateItem();
 
 		// Pop Items
 		mHeart->SetState(State::kDead);
@@ -63,4 +62,21 @@ void Treasure::ActorInput(unsigned char key)
 			}
 		}
 	}
+}
+
+void Treasure::GenerateItem()
+{
+	auto item = new Item{ mGfw };
+	
+	auto yOffset{ 0 };
+	switch (item->GetType())
+	{
+		case Item::kPotion:
+			yOffset = 1.0f;
+			break;
+	}
+
+	const auto& pos = GetPosition();
+	item->SetPosition(glm::vec3{ pos.x, pos.y + yOffset, pos.z });
+
 }

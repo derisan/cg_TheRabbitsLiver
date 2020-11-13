@@ -7,17 +7,21 @@
 
 Item::Item(Gfw* gfw, Gfw::Layer layer)
 	: Actor{ gfw, layer },
-	mType{ static_cast<Item::ItemType>(Random::GetIntRange(0, 0)) },
+	mType{ static_cast<Item::ItemType>(Random::GetIntRange(1, 1)) },
 	mBox{ nullptr }
 {
 	std::string file;
 	switch (mType)
 	{
 		case kPotion:
-			file = "Assets/heart.gpmesh";
-			SetScale(0.02f);
+			file = "Assets/meat.gpmesh";
+			SetScale(1 / 40.0f);
+			SetRotation(180.0f);
 			break;
 		case kPoison:
+			file = "Assets/frog.gpmesh";
+			SetScale(5.0f);
+			SetRotation(180.0f);
 			break;
 	}
 
