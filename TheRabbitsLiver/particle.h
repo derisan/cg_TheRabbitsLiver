@@ -10,7 +10,7 @@ public:
         kCarrot
     };
 
-    Particle(class Gfw* gfw, ParticleType type, const glm::vec3 startPoint, Gfw::Layer layer = Gfw::kDefault);
+    Particle(Gfw* gfw, ParticleType type, const glm::vec3 startPoint, Gfw::Layer layer = Gfw::kDefault);
 
     void UpdateActor() override;
     

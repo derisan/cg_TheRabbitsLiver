@@ -12,7 +12,7 @@ public:
         kLog
     };
 
-    Vehicle(class Gfw* gfw, VehicleType type, Gfw::Layer layer = Gfw::Layer::kVehicle);
+    Vehicle(Gfw* gfw, VehicleType type, Gfw::Layer layer = Gfw::Layer::kVehicle);
 
     void UpdateActor() override;
     

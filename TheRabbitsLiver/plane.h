@@ -16,7 +16,7 @@ public:
         kGoal
     };
 
-    Plane(class Gfw* gfw, PlaneType type, int curStage, bool right = false, Gfw::Layer layer = Gfw::Layer::kPlane);
+    Plane(Gfw* gfw, PlaneType type, int curStage, bool right = false, Gfw::Layer layer = Gfw::Layer::kPlane);
 
     void UpdateActor() override;
 

@@ -10,7 +10,7 @@ public:
         kP2
     };
 
-    Player(class Gfw* gfw, PlayerType type, Gfw::Layer layer = Gfw::Layer::kPlayer);
+    Player(Gfw* gfw, PlayerType type, Gfw::Layer layer = Gfw::Layer::kPlayer);
 
     void UpdateActor() override;
     void ActorInput(unsigned char key) override;
