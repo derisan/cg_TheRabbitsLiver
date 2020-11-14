@@ -71,7 +71,7 @@ void Treasure::GenerateItem()
 {
 	auto item = new Item{ mGfw };
 	
-	auto yOffset{ 0 };
+	float yOffset{ 0 };
 	switch (item->GetType())
 	{
 		case Item::kPotion:

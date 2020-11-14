@@ -30,6 +30,7 @@ public:
     void Reincarnation();
     void IncreaseHp();
     void DecreaseHp();
+    void DropBomb();
     
     // Getters
     class BoxComponent* GetBox() const { return mBox; }

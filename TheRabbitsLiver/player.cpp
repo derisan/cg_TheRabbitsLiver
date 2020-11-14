@@ -11,6 +11,7 @@
 #include "tree.h"
 #include "particle.h"
 #include "sword.h"
+#include "bomb.h"
 
 
 Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
@@ -74,7 +75,9 @@ void Player::UpdateActor()
 	SetPosition(pos);
 
 	if (mLives <= 0)
+	{
 		YouDie();
+	}
 }
 
 void Player::ActorInput(unsigned char key)
@@ -269,5 +272,34 @@ void Player::DecreaseHp()
 		mLifeGauges[mLives]->SetState(State::kDead);
 		mLifeGauges.pop_back();
 		GenerateLifeSprite(mLifeImgFile);
+	}
+}
+
+void Player::DropBomb()
+{
+	auto vehicles = mGfw->GetActorsAt(Gfw::Layer::kVehicle);
+	int bombs{ 10 };
+	for (auto vehicle : vehicles)
+	{
+		if (vehicle->GetState() != State::kActive)
+			continue;
+
+		auto vp = (Vehicle*)vehicle;
+
+		if (vp->GetType() == Vehicle::kLog)
+			continue;
+
+		const auto& vPos = vp->GetPosition();
+		const auto& pPos = GetPosition();
+		if (vPos.z > pPos.z || fabs(vPos.z - pPos.z) > 10.0f)
+			continue;
+
+		// Generate bomb
+		new Bomb{ mGfw, vp };
+
+		--bombs;
+
+		if (bombs == 0)
+			break;
 	}
 }
