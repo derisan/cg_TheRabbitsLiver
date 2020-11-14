@@ -68,26 +68,41 @@ void MainScene::Exit()
 
 void MainScene::ProcessInput(unsigned char key)
 {
-	if (key == 27)
-		mGfw->ChangeScene("title");
-	else if (key == 13)
-		mGfw->ChangeScene("dead");
-	else if (key == 't')
-		mGfw->ChangeScene("winning");
-	else if (key == 'g' || key == 'G')
+	switch (key)
 	{
-		mIsNight = !mIsNight;
-		mChangesLightYpos = !mChangesLightYpos;
+		case 27: // esc
+			mGfw->ChangeScene("title");
+			break;
+		case 'g': case 'G':
+		{
+			mIsNight = !mIsNight;
+			mChangesLightYpos = !mChangesLightYpos;
 
-		if (mIsNight)
-			SoundEngine::Get()->Play("owl.mp3");
-		else
-			SoundEngine::Get()->Play("chicken.mp3");
+			if (mIsNight)
+				SoundEngine::Get()->Play("owl.mp3");
+			else
+				SoundEngine::Get()->Play("chicken.mp3");
+		}
+			break;
+		case 'p': case 'P':
+			Pause();
+			break;
+		case 'r': case 'R':
+			Resume();
+			break;
+		case 49: // Numpad 1
+			mPlayer1->GetCamera()->SetTopView();
+			mPlayer2->GetCamera()->SetTopView();
+			break;
+		case 50: // Numpad 2
+			mPlayer1->GetCamera()->SetFPS();
+			mPlayer2->GetCamera()->SetFPS();
+			break;
+		case 51: // Numpad 3
+			mPlayer1->GetCamera()->SetTPS();
+			mPlayer2->GetCamera()->SetTPS();
+			break;
 	}
-	else if (key == 'p' || key == 'P')
-		Pause();
-	else if (key == 'r' || key == 'R')
-		Resume();
 }
 
 void MainScene::Update()
@@ -100,7 +115,7 @@ void MainScene::Update()
 	if (IsWin())
 		mGfw->ChangeScene("winning");
 
-	else if(mPlayer1->GetIsDead() && mPlayer2->GetIsDead())
+	else if (mPlayer1->GetIsDead() && mPlayer2->GetIsDead())
 		mGfw->ChangeScene("dead");
 
 	if (mChangesLightYpos)
@@ -182,12 +197,12 @@ void MainScene::LoadData()
 
 	auto frame = new Actor{ mGfw };
 	frame->SetScale(2.0f);
-	auto sc = new SpriteComponent{ frame, "Assets/rabbit_frame.png", Gfw::SpriteLayer::kBottom};
+	auto sc = new SpriteComponent{ frame, "Assets/rabbit_frame.png", Gfw::SpriteLayer::kBottom };
 
 	frame = new Actor{ mGfw };
 	frame->SetScale(2.0f);
 	sc = new SpriteComponent{ frame, "Assets/crow_frame.png", Gfw::SpriteLayer::kTop };
-	
+
 	// Read stage from file
 	std::ifstream file{ "Assets/stage.txt" };
 	if (!file.is_open())
@@ -288,7 +303,7 @@ void MainScene::CollisionCheck()
 			mPlayer2->SetZBorder(glm::vec2{ z - 2.0f, z - 16.0f });
 			continue;
 		}
-		
+
 		if (pp->GetType() == Plane::PlaneType::kWater)
 			continue;
 
@@ -296,7 +311,7 @@ void MainScene::CollisionCheck()
 		{
 			mPlayer1->NotToFall();
 		}
-		
+
 		if (Intersects(p2Box, pp))
 		{
 			mPlayer2->NotToFall();
@@ -369,7 +384,7 @@ void MainScene::CollisionCheck()
 
 			ip->SetState(Actor::State::kDead);
 		}
-		
+
 		if (Intersects(p2Box, itemBox))
 		{
 			auto type = ip->GetType();
@@ -408,7 +423,7 @@ void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
 	mPhongShader->SetVectorUniform("uDirLight.diffuse", glm::vec3{ 1.0f });
 	mPhongShader->SetVectorUniform("uDirLight.specular", glm::vec3{ 1.0f });
 
-	
+
 	// Spot light
 	int curVehicles{ 0 };
 	const int spotLimit{ 20 };
@@ -421,7 +436,7 @@ void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
 		auto vp = (Vehicle*)vehicle;
 		if (vp->GetType() == Vehicle::kLog)
 			continue;
-		
+
 		const auto& pos = vp->GetPosition();
 		if (fabs(pos.z - GetBehindPlayerZPos() > 12.0f))
 			continue;
