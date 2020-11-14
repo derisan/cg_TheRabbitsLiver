@@ -54,6 +54,7 @@ void MainScene::Enter()
 	mPhongShader->SetMatrix4Uniform("uProj", proj);
 
 	mCurStage = 0;
+	mStage.clear();
 
 	// Load game data
 	LoadData();
@@ -422,7 +423,7 @@ void MainScene::CollisionCheck()
 
 bool MainScene::IsWin()
 {
-	if (GetBehindPlayerZPos() == -2.0f * (mStage.size() - 1))
+	if (GetBehindPlayerZPos() <= -2.0f * (mStage.size() - 1))
 		return true;
 
 	return false;
