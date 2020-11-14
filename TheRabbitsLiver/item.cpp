@@ -7,7 +7,7 @@
 
 Item::Item(Gfw* gfw, Gfw::Layer layer)
 	: Actor{ gfw, layer },
-	mType{ static_cast<Item::ItemType>(Random::GetIntRange(3, 3)) },
+	mType{ static_cast<Item::ItemType>(Random::GetIntRange(0, 3)) },
 	mBox{ nullptr }
 {
 	std::string file;

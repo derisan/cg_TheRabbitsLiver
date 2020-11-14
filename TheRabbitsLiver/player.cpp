@@ -12,6 +12,7 @@
 #include "particle.h"
 #include "sword.h"
 #include "bomb.h"
+#include "ballon.h"
 
 
 Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
@@ -71,6 +72,8 @@ void Player::UpdateActor()
 		SoundEngine::Get()->Play("waterfall.mp3", 2.0f);
 		YouDie();
 	}
+
+
 
 	SetPosition(pos);
 
@@ -302,4 +305,12 @@ void Player::DropBomb()
 		if (bombs == 0)
 			break;
 	}
+}
+
+void Player::Fly()
+{
+	auto ballon = new Ballon{ mGfw, this };
+	const auto& pos = GetPosition();
+	SetPosition(glm::vec3{ pos.x, 5.0f, pos.z });
+	ballon->SetPosition(glm::vec3{ pos.x, pos.y + 1.0f, pos.z });
 }

@@ -31,6 +31,7 @@ public:
     void IncreaseHp();
     void DecreaseHp();
     void DropBomb();
+    void Fly();
     
     // Getters
     class BoxComponent* GetBox() const { return mBox; }

@@ -380,6 +380,13 @@ void MainScene::CollisionCheck()
 				case Item::kBomb:
 					mPlayer1->DropBomb();
 					break;
+				case Item::kBallon:
+					if (mPlayer1->GetState() == Actor::State::kActive && mPlayer2->GetState() == Actor::State::kActive)
+					{
+						mPlayer1->Fly();
+						mPlayer2->Fly();
+					}
+					break;
 			}
 
 			ip->SetState(Actor::State::kDead);
@@ -398,6 +405,13 @@ void MainScene::CollisionCheck()
 					break;
 				case Item::kBomb:
 					mPlayer2->DropBomb();
+					break;
+				case Item::kBallon:
+					if (mPlayer1->GetState() == Actor::State::kActive && mPlayer2->GetState() == Actor::State::kActive)
+					{
+						mPlayer2->Fly();
+						mPlayer1->Fly();
+					}
 					break;
 			}
 
