@@ -442,7 +442,7 @@ void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
 	// Spot light
 	int curVehicles{ 0 };
 	const int spotLimit{ 20 };
-	auto vehicles = mGfw->GetActorsAt(Gfw::Layer::kVehicle);
+	auto& vehicles = mGfw->GetActorsAt(Gfw::Layer::kVehicle);
 	for (auto vehicle : vehicles)
 	{
 		if (curVehicles >= spotLimit)

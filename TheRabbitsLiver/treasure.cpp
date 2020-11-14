@@ -50,7 +50,7 @@ void Treasure::ActorInput(unsigned char key)
 			mHeart->SetPosition(glm::vec3{ pos.x, 3.0f, pos.z });
 		}
 
-		auto players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
+		auto& players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
 		for (auto player : players)
 		{
 			if (player->GetState() != Actor::State::kActive)

@@ -39,7 +39,7 @@ void Tombstone::ActorInput(unsigned char key)
 
 	if (key == 32)
 	{
-		auto players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
+		auto& players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
 		for (auto player : players)
 		{
 			auto pp = (Player*)player;

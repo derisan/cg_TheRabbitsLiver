@@ -242,7 +242,7 @@ void Player::Reincarnation()
 
 	GenerateLifeSprite(mLifeImgFile);
 
-	auto players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
+	auto& players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
 	for (auto player : players)
 	{
 		auto pp = (Player*)player;
@@ -280,7 +280,7 @@ void Player::DecreaseHp()
 
 void Player::DropBomb()
 {
-	auto vehicles = mGfw->GetActorsAt(Gfw::Layer::kVehicle);
+	auto& vehicles = mGfw->GetActorsAt(Gfw::Layer::kVehicle);
 	int bombs{ 10 };
 	for (auto vehicle : vehicles)
 	{
