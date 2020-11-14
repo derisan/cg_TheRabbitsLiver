@@ -100,7 +100,7 @@ void MainScene::Update()
 	if (IsWin())
 		mGfw->ChangeScene("winning");
 
-	if (mPlayer1->GetIsDead() && mPlayer2->GetIsDead())
+	else if(mPlayer1->GetIsDead() && mPlayer2->GetIsDead())
 		mGfw->ChangeScene("dead");
 
 	if (mChangesLightYpos)
