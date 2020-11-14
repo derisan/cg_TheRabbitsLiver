@@ -145,7 +145,7 @@ void MainScene::Draw()
 	SetLightUniforms(camera->GetCameraPos());
 	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight() / 2);
 	mPhongShader->SetMatrix4Uniform("uView", camera->GetView());
-	for (auto mesh : mGfw->GetMeshes())
+	for (auto& mesh : mGfw->GetMeshes())
 		mesh->Draw(mPhongShader);
 
 	glDisable(GL_DEPTH_TEST);
@@ -153,7 +153,7 @@ void MainScene::Draw()
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 	mSpriteShader->SetActive();
-	auto sprites = mGfw->GetSpritesAt(Gfw::SpriteLayer::kBottom);
+	auto& sprites = mGfw->GetSpritesAt(Gfw::SpriteLayer::kBottom);
 	for (auto sprite : sprites)
 		sprite->Draw(mSpriteShader);
 
@@ -165,7 +165,7 @@ void MainScene::Draw()
 	SetLightUniforms(camera->GetCameraPos());
 	glViewport(0, mGfw->GetScrHeight() / 2, mGfw->GetScrWidth(), mGfw->GetScrHeight() / 2);
 	mPhongShader->SetMatrix4Uniform("uView", camera->GetView());
-	for (auto mesh : mGfw->GetMeshes())
+	for (auto& mesh : mGfw->GetMeshes())
 		mesh->Draw(mPhongShader);
 
 	glDisable(GL_DEPTH_TEST);
@@ -173,8 +173,8 @@ void MainScene::Draw()
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 	mSpriteShader->SetActive();
-	sprites = mGfw->GetSpritesAt(Gfw::SpriteLayer::kTop);
-	for (auto sprite : sprites)
+	auto& spritez = mGfw->GetSpritesAt(Gfw::SpriteLayer::kTop);
+	for (auto sprite : spritez)
 		sprite->Draw(mSpriteShader);
 
 

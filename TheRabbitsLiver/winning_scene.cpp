@@ -65,8 +65,8 @@ void WinningScene::Draw()
 
 	// Draw all sprites
 	mSpriteShader->SetActive();
-	auto layers = mGfw->GetAllSprites();
-	for (auto sprites : layers)
+	auto& layers = mGfw->GetAllSprites();
+	for (auto& sprites : layers)
 		for (auto sprite : sprites)
 			sprite->Draw(mSpriteShader);
 
