@@ -203,6 +203,9 @@ void MainScene::LoadData()
 	for (auto ch : contents)
 		if (ch != '\n' && ch != ' ')
 			mStage.emplace_back(ch - 65);
+
+	assert(mStage.size() >= 10 && "Stage must be more than 10!");
+	assert(mStage.size() % 10 == 0 && "Stage must be divided by 10!");
 }
 
 void MainScene::CreatePlane()
