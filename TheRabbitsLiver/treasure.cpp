@@ -77,6 +77,9 @@ void Treasure::GenerateItem()
 		case Item::kPotion:
 			yOffset = 1.0f;
 			break;
+		case Item::kBallon:
+			yOffset = 1.5f;
+			break;
 	}
 
 	const auto& pos = GetPosition();

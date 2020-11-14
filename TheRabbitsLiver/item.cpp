@@ -7,7 +7,7 @@
 
 Item::Item(Gfw* gfw, Gfw::Layer layer)
 	: Actor{ gfw, layer },
-	mType{ static_cast<Item::ItemType>(Random::GetIntRange(0, 2)) },
+	mType{ static_cast<Item::ItemType>(Random::GetIntRange(3, 3)) },
 	mBox{ nullptr }
 {
 	std::string file;
@@ -26,6 +26,10 @@ Item::Item(Gfw* gfw, Gfw::Layer layer)
 		case kBomb:
 			file = "Assets/penguin.gpmesh";
 			SetScale(0.1f);
+			break;
+		case kBallon:
+			file = "Assets/ballon.gpmesh";
+			SetScale(0.3f);
 			break;
 	}
 

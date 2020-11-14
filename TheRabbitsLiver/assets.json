@@ -1,5 +1,6 @@
 {
   "gpmesh": [
+    "ballon.gpmesh",
     "basic_tree.gpmesh",
     "bird.gpmesh",
     "bunny.gpmesh",
@@ -25,6 +26,7 @@
     "water.gpmesh"
   ],
   "png": [
+    "ballon.png",
     "basic_tree.png",
     "bird.png",
     "bunny.png",

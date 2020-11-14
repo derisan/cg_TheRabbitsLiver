@@ -8,7 +8,8 @@ public:
     {
         kPotion,
         kPoison,
-        kBomb
+        kBomb,
+        kBallon
     };
 
     Item(Gfw* gfw, Gfw::Layer layer = Gfw::Layer::kItem);
