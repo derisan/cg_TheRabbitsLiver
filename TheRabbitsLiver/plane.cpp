@@ -40,6 +40,7 @@ Plane::Plane(Gfw* gfw, PlaneType type, int curStage, bool right, Gfw::Layer laye
 			mVehicleType = Vehicle::kLog;
 			break;
 		case PlaneType::kGoal:
+			file = "Assets/carpet.gpmesh";
 			break;
 	}
 
@@ -69,7 +70,7 @@ void Plane::UpdateActor()
 
 void Plane::GenerateVehicle()
 {
-	if (mType == PlaneType::kGrass || mType == PlaneType::kGoal)
+	if (mType == PlaneType::kGrass || mType == PlaneType::kGoal || mType == PlaneType::kGoal)
 		return;
 
 	const auto& pos = GetPosition();
