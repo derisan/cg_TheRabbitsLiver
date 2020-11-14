@@ -43,7 +43,7 @@ void Treasure::ActorInput(unsigned char key)
 		if (!mHeart)
 		{
 			mHeart = new Actor{ mGfw };
-			auto mc = new MeshComponent{ mHeart, "Assets/heart.gpmesh" };
+			auto mc = new MeshComponent{ mHeart, "Assets/star.gpmesh" };
 			mHeart->SetScale(0.0f);
 
 			const auto& pos = GetPosition();
@@ -61,7 +61,7 @@ void Treasure::ActorInput(unsigned char key)
 			if (glm::distance2(pp->GetPosition(), GetPosition()) <= 6.0f)
 			{
 				mPercentage += 2.0f * mGfw->dt;
-				mHeart->SetScale(mPercentage * 0.005f);
+				mHeart->SetScale(mPercentage * 0.01f);
 			}
 		}
 	}

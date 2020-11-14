@@ -16,12 +16,9 @@
     "log.gpmesh",
     "meat.gpmesh",
     "penguin.gpmesh",
-    "pumpkin.gpmesh",
     "railroad.gpmesh",
     "road.gpmesh",
-    "skull.gpmesh",
-    "sword.gpmesh",
-    "tombstone.gpmesh",
+    "star.gpmesh",
     "truck.gpmesh",
     "water.gpmesh"
   ],
@@ -45,13 +42,10 @@
     "log.png",
     "meat.png",
     "penguin.png",
-    "pumpkin.png",
     "rabbit_frame.png",
     "railroad.png",
     "road.png",
-    "skull.png",
-    "sword.png",
-    "tombstone.png",
+    "star.png",
     "truck.png",
     "water.png",
     "white.png",
@@ -77,8 +71,7 @@
     "jump.wav",
     "penguin_boom.wav",
     "penguin_drop.wav",
-    "reincarnation.wav",
-    "slashing.wav"
+    "reincarnation.wav"
   ],
   "jpg": [
     "frog.jpg",
