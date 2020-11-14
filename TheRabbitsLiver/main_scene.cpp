@@ -439,13 +439,36 @@ void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
 	mPhongShader->SetVectorUniform("uDirLight.specular", glm::vec3{ 1.0f });
 
 
-	// Spot light
-	int curVehicles{ 0 };
+	// Player spot light
+	int curLights{ 0 };
+	auto& players = mGfw->GetActorsAt(Gfw::Layer::kPlayer);
+	for (auto player : players)
+	{
+		auto pp = (Player*)player;
+
+		const auto& pos = pp->GetPosition();
+		std::string path = "uSpotLights[" + std::to_string(curLights) + "].";
+		mPhongShader->SetVectorUniform(path + "position", glm::vec3{ pos.x, pos.y + 5.0f, pos.z });
+		mPhongShader->SetVectorUniform(path + "direction", glm::vec3{ 0.0f, pos.y - 0.1f, 0.0f });
+		mPhongShader->SetVectorUniform(path + "ambient", glm::vec3{ 0.3f });
+		mPhongShader->SetVectorUniform(path + "diffuse", glm::vec3{ 1.0f });
+		mPhongShader->SetVectorUniform(path + "specular", glm::vec3{ 1.0f });
+		mPhongShader->SetFloatUniform(path + "constant", 1.0f);
+		mPhongShader->SetFloatUniform(path + "linear", 0.0045f);
+		mPhongShader->SetFloatUniform(path + "quadratic", 0.0075f);
+		mPhongShader->SetFloatUniform(path + "cutOff", glm::cos(glm::radians(12.5f)));
+		mPhongShader->SetFloatUniform(path + "outerCutOff", glm::cos(glm::radians(17.5f)));
+
+		++curLights;
+	}
+
+
+	// Vehicle spot light
 	const int spotLimit{ 20 };
 	auto& vehicles = mGfw->GetActorsAt(Gfw::Layer::kVehicle);
 	for (auto vehicle : vehicles)
 	{
-		if (curVehicles >= spotLimit)
+		if (curLights >= spotLimit)
 			break;
 
 		auto vp = (Vehicle*)vehicle;
@@ -456,7 +479,7 @@ void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
 		if (fabs(pos.z - GetBehindPlayerZPos() > 12.0f))
 			continue;
 
-		std::string path = "uSpotLights[" + std::to_string(curVehicles) + "].";
+		std::string path = "uSpotLights[" + std::to_string(curLights) + "].";
 		mPhongShader->SetVectorUniform(path + "position", vp->GetPosition());
 		auto direction = -vp->GetRight() + glm::vec3{ 0.0f, -0.1f, 0.0f };
 		mPhongShader->SetVectorUniform(path + "direction", direction);
@@ -469,10 +492,10 @@ void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
 		mPhongShader->SetFloatUniform(path + "cutOff", glm::cos(glm::radians(12.5f)));
 		mPhongShader->SetFloatUniform(path + "outerCutOff", glm::cos(glm::radians(17.5f)));
 
-		++curVehicles;
+		++curLights;
 	}
 
-	for (int i = curVehicles; i < spotLimit; ++i)
+	for (int i = curLights; i < spotLimit; ++i)
 	{
 		std::string path = "uSpotLights[" + std::to_string(i) + "].";
 		mPhongShader->SetVectorUniform(path + "position", glm::vec3{ 0.0f });
