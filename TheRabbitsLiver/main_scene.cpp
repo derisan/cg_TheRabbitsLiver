@@ -433,7 +433,7 @@ void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
 {
 	// Directional light
 	mPhongShader->SetVectorUniform("uViewPos", cameraPos);
-	mPhongShader->SetVectorUniform("uDirLight.direction", glm::vec3{ -24.0f, mDirLightYPos, GetBehindPlayerZPos() });
+	mPhongShader->SetVectorUniform("uDirLight.direction", glm::vec3{ -24.0f, mDirLightYPos, -0.1f });
 	mPhongShader->SetVectorUniform("uDirLight.ambient", glm::vec3{ 0.0f });
 	mPhongShader->SetVectorUniform("uDirLight.diffuse", glm::vec3{ 1.0f });
 	mPhongShader->SetVectorUniform("uDirLight.specular", glm::vec3{ 1.0f });
