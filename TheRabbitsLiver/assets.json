@@ -47,11 +47,11 @@
     "rabbit_frame.png",
     "railroad.png",
     "road.png",
+    "slamdunk.png",
     "star.png",
     "truck.png",
     "water.png",
-    "white.png",
-    "youwin.png"
+    "white.png"
   ],
   "mp3": [
     "BlueWorld.mp3",
@@ -63,7 +63,7 @@
     "p1_dead.mp3",
     "p2_dead.mp3",
     "pop.mp3",
-    "victory.mp3",
+    "slam.mp3",
     "waterfall.mp3"
   ],
   "wav": [
