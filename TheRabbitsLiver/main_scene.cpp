@@ -24,6 +24,7 @@
 #include "camera_component.h"
 #include "mesh_component.h"
 #include "box_component.h"
+#include "background.h"
 
 MainScene::MainScene(Gfw* gfw)
 	: Scene{ gfw },
@@ -32,6 +33,7 @@ MainScene::MainScene(Gfw* gfw)
 	mPhongShader{ nullptr },
 	mPlayer1{ nullptr },
 	mPlayer2{ nullptr },
+	mBackground{ nullptr },
 	mCurStage{ 0 },
 	mDirLightYPos{ -20.0f },
 	mIsNight{ false },
@@ -52,6 +54,8 @@ void MainScene::Enter()
 		0.1f, 100.0f);
 	mPhongShader->SetActive();
 	mPhongShader->SetMatrix4Uniform("uProj", proj);
+
+	mBackground = new Background{ "Assets/earth.jpg" };
 
 	mCurStage = 0;
 	mStage.clear();
@@ -148,6 +152,8 @@ void MainScene::Draw()
 	for (auto& mesh : mGfw->GetMeshes())
 		mesh->Draw(mPhongShader);
 
+	mBackground->Draw();
+
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
@@ -167,6 +173,8 @@ void MainScene::Draw()
 	mPhongShader->SetMatrix4Uniform("uView", camera->GetView());
 	for (auto& mesh : mGfw->GetMeshes())
 		mesh->Draw(mPhongShader);
+
+	mBackground->Draw();
 
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);

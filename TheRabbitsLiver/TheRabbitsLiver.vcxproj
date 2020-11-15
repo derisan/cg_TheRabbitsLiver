@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="aabb.cpp" />
     <ClCompile Include="actor.cpp" />
+    <ClCompile Include="background.cpp" />
     <ClCompile Include="ballon.cpp" />
     <ClCompile Include="bomb.cpp" />
     <ClCompile Include="box_component.cpp" />
@@ -179,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="aabb.h" />
     <ClInclude Include="actor.h" />
+    <ClInclude Include="background.h" />
     <ClInclude Include="ballon.h" />
     <ClInclude Include="bomb.h" />
     <ClInclude Include="box_component.h" />

@@ -110,6 +110,9 @@
     <ClCompile Include="ballon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aabb.h">
@@ -206,6 +209,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="ballon.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="background.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
