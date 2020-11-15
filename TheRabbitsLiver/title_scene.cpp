@@ -1,5 +1,7 @@
 #include "title_scene.h"
 
+#include <iostream>
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
@@ -21,8 +23,6 @@ TitleScene::TitleScene(Gfw* gfw)
 
 void TitleScene::Enter()
 {
-	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
-	
 	SoundEngine::Get()->Play("happy.mp3");
 
 	auto img = new Actor{ mGfw, mGfw->kDefault };
@@ -33,7 +33,7 @@ void TitleScene::Exit()
 {
 	SoundEngine::Get()->Stop("happy.mp3");
 
-	mGfw->RemoveAll();
+	mGfw->RemoveAllActors();
 }
 
 void TitleScene::ProcessInput(unsigned char key)
@@ -46,24 +46,28 @@ void TitleScene::ProcessInput(unsigned char key)
 
 void TitleScene::Update()
 {
-
+	
 }
 
 void TitleScene::Draw()
 {
+	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Enable alpha blending
+	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
 	// Draw all sprites
 	mSpriteShader->SetActive();
-	auto sprites = mGfw->GetSprites();
-	for (auto sprite : sprites)
-		sprite->Draw(mSpriteShader);
+	auto& layers = mGfw->GetAllSprites();
+	for (auto& sprites : layers)
+		for (auto sprite : sprites)
+			sprite->Draw(mSpriteShader);
 
 	glutSwapBuffers();
 }

@@ -21,8 +21,6 @@ DeadScene::DeadScene(Gfw* gfw)
 
 void DeadScene::Enter()
 {
-	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
-
 	SoundEngine::Get()->Play("gameover.wav");
 
 	auto img = new Actor{ mGfw };
@@ -34,7 +32,7 @@ void DeadScene::Exit()
 {
 	SoundEngine::Get()->Stop("gameover.wav");
 
-	mGfw->RemoveAll();
+	mGfw->RemoveAllActors();
 }
 
 void DeadScene::ProcessInput(unsigned char key)
@@ -52,19 +50,23 @@ void DeadScene::Update()
 
 void DeadScene::Draw()
 {
+	glViewport(0, 0, mGfw->GetScrWidth(), mGfw->GetScrHeight());
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Enable alpha blending
+	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
 	// Draw all sprites
 	mSpriteShader->SetActive();
-	auto sprites = mGfw->GetSprites();
-	for (auto sprite : sprites)
-		sprite->Draw(mSpriteShader);
+	auto& layers = mGfw->GetAllSprites();
+	for (auto& sprites : layers)
+		for (auto sprite : sprites)
+			sprite->Draw(mSpriteShader);
 
 	glutSwapBuffers();
 }

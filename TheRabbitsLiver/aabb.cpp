@@ -4,7 +4,8 @@
 
 #include <glm/gtx/rotate_vector.hpp>
 
-
+#include "plane.h"
+#include "box_component.h"
 
 AABB::AABB(const glm::vec3& min, const glm::vec3& max)
 	: mMin{ min },
@@ -37,7 +38,7 @@ void AABB::Rotate(float angle)
 	points[5] = glm::vec3{ mMax.x, mMin.y, mMax.z };
 	points[6] = glm::vec3{ mMax.x, mMax.y, mMin.z };
 	points[7] = mMax;
-	
+
 	auto p = glm::rotate(points[0], glm::radians(angle), glm::vec3{ 0.0f, 1.0f, 0.0f });
 	mMin = p;
 	mMax = p;
@@ -70,7 +71,7 @@ float AABB::MinDist2(const glm::vec3& point) const
 	dy = glm::max(dy, point.y - mMax.y);
 	float dz = glm::max(mMin.z - point.z, 0.0f);
 	dz = glm::max(dy, point.z - mMax.z);
-	
+
 	return dx * dx + dy * dy + dz * dz;
 }
 
@@ -85,4 +86,13 @@ bool Intersects(const AABB& a, const AABB& b)
 
 	// If none of these are true, they must intersect
 	return !no;
+}
+
+bool Intersects(const AABB& a, Plane* plane)
+{
+	const auto& b = plane->GetBox()->GetWorldBox();
+
+	bool res = (b.mMax.z > a.mMin.z) && (b.mMin.z < a.mMin.z) && (a.mMin.y <= b.mMax.y);
+
+	return res;
 }

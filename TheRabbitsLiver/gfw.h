@@ -15,7 +15,16 @@ public:
 		kVehicle,
 		kPlane,
 		kTree,
+		kItem,
+		kTreasure,
 		kDefault
+	};
+
+	enum SpriteLayer
+	{
+		kBottom,
+		kTop,
+		kOther
 	};
 
 	Gfw();
@@ -31,11 +40,11 @@ public:
 
 	void AddActorAt(class Actor* actor, Layer layer);
 	void RemoveActorAt(class Actor* actor, Layer layer);
-	void RemoveAll();
+	void RemoveAllActors();
 	void AddMesh(class MeshComponent* mesh);
 	void RemoveMesh(class MeshComponent* mesh);
-	void AddSprite(class SpriteComponent* sprite);
-	void RemoveSprite(class SpriteComponent* sprite);
+	void AddSpriteAt(class SpriteComponent* sprite, SpriteLayer layer = SpriteLayer::kOther);
+	void RemoveSpriteAt(class SpriteComponent* sprite, SpriteLayer layer = SpriteLayer::kOther);
 
 	// Getters
 	bool GetShouldClose() const { return mShouldClose; }
@@ -44,7 +53,8 @@ public:
 
 	std::vector<class Actor*>& GetActorsAt(Layer layer) { return mActors[layer]; }
 	std::vector<class MeshComponent*>& GetMeshes() { return mMeshes; }
-	std::vector<class SpriteComponent*> GetSprites() { return mSprites; }
+	std::vector<class SpriteComponent*>& GetSpritesAt(SpriteLayer layer) { return mSprites[layer]; }
+	std::vector<std::vector<class SpriteComponent*>>& GetAllSprites() { return mSprites; }
 
 	// Setters
 	void SetShouldClose(bool value) { mShouldClose = value; }
@@ -63,7 +73,7 @@ private:
 	std::vector<class Actor*> mPendingActors;
 
 	std::vector<class MeshComponent*> mMeshes;
-	std::vector<class SpriteComponent*> mSprites;
+	std::vector<std::vector<class SpriteComponent*>> mSprites;
 
 	int mScrWidth;
 	int mScrHeight;

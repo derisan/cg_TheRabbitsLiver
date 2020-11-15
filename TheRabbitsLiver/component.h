@@ -1,5 +1,7 @@
 #pragma once
 
+#include "gfw.h"
+
 class Component
 {
 public:

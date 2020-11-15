@@ -10,19 +10,35 @@ public:
         kP2
     };
 
-    Player(class Gfw* gfw, PlayerType type, Gfw::Layer layer = Gfw::Layer::kPlayer);
+    Player(Gfw* gfw, PlayerType type, Gfw::Layer layer = Gfw::Layer::kPlayer);
 
     void UpdateActor() override;
     void ActorInput(unsigned char key) override;
-
     void PlayerOneInput(unsigned char key);
     void PlayerTwoInput(unsigned char key);
 
+    void GenerateLifeSprite(const std::string& file);
+
+    // Collision detect
+    void CheckCollisionWithTree();
+
+    // Collision process
+    void NotToFall();
+    void OnBoard(class Vehicle* log);
+    void HitByCar();
+    void YouDie();
+    void Reincarnation();
+    void IncreaseHp();
+    void DecreaseHp();
+    void DropBomb();
+    void Fly();
+    
     // Getters
     class BoxComponent* GetBox() const { return mBox; }
     class CameraComponent* GetCamera() const { return mCamera; }
     PlayerType GetType() const { return mType; }
-
+    bool GetIsDead() const { return mIsDead; }
+    
     // Setters
     void SetZBorder(const glm::vec2 z) { mBorder.z = z; }
 
@@ -40,5 +56,12 @@ private:
     Border mBorder;
 
     glm::vec3 mPrevMovement;
+    int mLives;
+    float mInvincibleTime;
+    bool mIsDead;
+    std::string mLifeImgFile;
+    std::vector<class Actor*> mLifeGauges;
+
+    const int maxLife{ 3 };
 };
 

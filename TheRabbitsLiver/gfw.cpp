@@ -15,9 +15,11 @@
 #include "actor.h"
 #include "mesh_component.h"
 #include "sprite_component.h"
+#include "random.h"
 
 Gfw::Gfw()
-	: mActors( 5 ),
+	: mActors( 7 ),
+	mSprites( 3 ),
 	mScrWidth{ 0 },
 	mScrHeight{ 0 },
 	mShouldClose{ false },
@@ -43,6 +45,8 @@ bool Gfw::Init(int* argc, char** argv, int w, int h)
 		std::cout << "Unable to initialize GLEW" << std::endl;
 		return false;
 	}
+	
+	Random::Init();
 
 	mScenesMap.emplace("loading", new LoadingScene{ this });
 	mScenesMap.emplace("title", new TitleScene{ this });
@@ -75,13 +79,15 @@ void Gfw::Shutdown()
 		delete item.second;
 
 	// Delete all actors
-	RemoveAll();
+	RemoveAllActors();
 }
 
 void Gfw::ProcessInput(unsigned char key)
 {
 	if (key == 0)
 		return;
+	else if (key == 'u')
+		glutFullScreenToggle();
 
 	for (auto actors : mActors)
 		for (auto actor : actors)
@@ -94,6 +100,10 @@ void Gfw::ProcessInput(unsigned char key)
 
 void Gfw::Update()
 {
+	// Update screen width and height
+	mScrWidth = glutGet(GLUT_WINDOW_WIDTH);
+	mScrHeight = glutGet(GLUT_WINDOW_HEIGHT);
+
 	auto curScene = mScenes.top();
 
 	if (curScene->GetState() == Scene::State::kPaused)
@@ -197,11 +207,14 @@ void Gfw::RemoveActorAt(Actor* actor, Layer layer)
 	}
 }
 
-void Gfw::RemoveAll()
+void Gfw::RemoveAllActors()
 {
 	for (auto actors : mActors)
+	{
 		for (auto actor : actors)
 			delete actor;
+		actors.clear();
+	}
 }
 
 void Gfw::AddMesh(MeshComponent* mesh)
@@ -216,14 +229,14 @@ void Gfw::RemoveMesh(MeshComponent* mesh)
 		mMeshes.erase(iter);
 }
 
-void Gfw::AddSprite(SpriteComponent* sprite)
+void Gfw::AddSpriteAt(SpriteComponent* sprite, SpriteLayer layer)
 {
-	mSprites.emplace_back(sprite);
+	mSprites[layer].emplace_back(sprite);
 }
 
-void Gfw::RemoveSprite(SpriteComponent* sprite)
+void Gfw::RemoveSpriteAt(SpriteComponent* sprite, SpriteLayer layer)
 {
-	auto iter = std::find(std::begin(mSprites), std::end(mSprites), sprite);
-	if (iter != std::end(mSprites))
-		mSprites.erase(iter);
+	auto iter = std::find(std::begin(mSprites[layer]), std::end(mSprites[layer]), sprite);
+	if (iter != std::end(mSprites[layer]))
+		mSprites[layer].erase(iter);
 }
