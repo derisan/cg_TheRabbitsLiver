@@ -1,3 +1,9 @@
+// -----------------------------------
+// gfw.h
+// 2020. 11. 11
+// Code by derisan (derisan@naver.com)
+// -----------------------------------
+
 #pragma once
 
 #include <string>
