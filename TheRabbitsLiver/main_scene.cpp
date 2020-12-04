@@ -97,6 +97,11 @@ void MainScene::ProcessInput(unsigned char key)
 		case 'r': case 'R':
 			Resume();
 			break;
+		case 't': case 'T':
+			// TODO: Make players invincible
+			mPlayer1->SetInvincible( !mPlayer1->GetInvincible() );
+			mPlayer2->SetInvincible( !mPlayer2->GetInvincible() );
+			break;
 		case 49: // Numpad 1
 			mPlayer1->GetCamera()->SetTopView();
 			mPlayer2->GetCamera()->SetTopView();
