@@ -23,16 +23,16 @@ WinningScene::WinningScene(Gfw* gfw)
 
 void WinningScene::Enter()
 {
-	SoundEngine::Get()->Play("victory.mp3");
+	SoundEngine::Get()->Play("slam.mp3");
 
 	auto img = new Actor{ mGfw };
-	auto sc = new SpriteComponent{ img, "Assets/youwin.png" };
-	img->SetScale(1.0f);
+	auto sc = new SpriteComponent{ img, "Assets/slamdunk.png" };
+	img->SetScale(2.0f);
 }
 
 void WinningScene::Exit()
 {
-	SoundEngine::Get()->Stop("victory.mp3");
+	SoundEngine::Get()->Stop("slam.mp3");
 
 	mGfw->RemoveAllActors();
 }

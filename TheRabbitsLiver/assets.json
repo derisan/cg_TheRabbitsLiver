@@ -9,6 +9,7 @@
     "carpet.gpmesh",
     "carrot.gpmesh",
     "chest.gpmesh",
+    "cloud.gpmesh",
     "fireball.gpmesh",
     "frog.gpmesh",
     "grass.gpmesh",
@@ -32,6 +33,7 @@
     "carpet.png",
     "carrot.png",
     "chest.png",
+    "cloud.png",
     "crow_frame.png",
     "deadscreen.png",
     "fireball.png",
@@ -45,11 +47,11 @@
     "rabbit_frame.png",
     "railroad.png",
     "road.png",
+    "slamdunk.png",
     "star.png",
     "truck.png",
     "water.png",
-    "white.png",
-    "youwin.png"
+    "white.png"
   ],
   "mp3": [
     "BlueWorld.mp3",
@@ -61,7 +63,7 @@
     "p1_dead.mp3",
     "p2_dead.mp3",
     "pop.mp3",
-    "victory.mp3",
+    "slam.mp3",
     "waterfall.mp3"
   ],
   "wav": [
@@ -74,6 +76,7 @@
     "reincarnation.wav"
   ],
   "jpg": [
+    "earth.jpg",
     "frog.jpg",
     "pressenter.jpg"
   ]

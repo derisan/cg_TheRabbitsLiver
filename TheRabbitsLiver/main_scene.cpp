@@ -24,6 +24,7 @@
 #include "camera_component.h"
 #include "mesh_component.h"
 #include "box_component.h"
+#include "background.h"
 
 MainScene::MainScene(Gfw* gfw)
 	: Scene{ gfw },
@@ -32,6 +33,7 @@ MainScene::MainScene(Gfw* gfw)
 	mPhongShader{ nullptr },
 	mPlayer1{ nullptr },
 	mPlayer2{ nullptr },
+	mBackground{ nullptr },
 	mCurStage{ 0 },
 	mDirLightYPos{ -20.0f },
 	mIsNight{ false },
@@ -53,6 +55,8 @@ void MainScene::Enter()
 	mPhongShader->SetActive();
 	mPhongShader->SetMatrix4Uniform("uProj", proj);
 
+	mBackground = new Background{ "Assets/earth.jpg" };
+
 	mCurStage = 0;
 	mStage.clear();
 
@@ -63,6 +67,8 @@ void MainScene::Enter()
 void MainScene::Exit()
 {
 	SoundEngine::Get()->Stop("BlueWorld.mp3");
+
+	delete mBackground;
 
 	mGfw->RemoveAllActors();
 }
@@ -90,6 +96,11 @@ void MainScene::ProcessInput(unsigned char key)
 			break;
 		case 'r': case 'R':
 			Resume();
+			break;
+		case 't': case 'T':
+			// TODO: Make players invincible
+			mPlayer1->SetInvincible( !mPlayer1->GetInvincible() );
+			mPlayer2->SetInvincible( !mPlayer2->GetInvincible() );
 			break;
 		case 49: // Numpad 1
 			mPlayer1->GetCamera()->SetTopView();
@@ -148,6 +159,8 @@ void MainScene::Draw()
 	for (auto& mesh : mGfw->GetMeshes())
 		mesh->Draw(mPhongShader);
 
+	mBackground->Draw();
+
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
@@ -167,6 +180,8 @@ void MainScene::Draw()
 	mPhongShader->SetMatrix4Uniform("uView", camera->GetView());
 	for (auto& mesh : mGfw->GetMeshes())
 		mesh->Draw(mPhongShader);
+
+	mBackground->Draw();
 
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -433,7 +448,7 @@ void MainScene::SetLightUniforms(const glm::vec3& cameraPos)
 {
 	// Directional light
 	mPhongShader->SetVectorUniform("uViewPos", cameraPos);
-	mPhongShader->SetVectorUniform("uDirLight.direction", glm::vec3{ -24.0f, mDirLightYPos, GetBehindPlayerZPos() });
+	mPhongShader->SetVectorUniform("uDirLight.direction", glm::vec3{ -24.0f, mDirLightYPos, -0.1f });
 	mPhongShader->SetVectorUniform("uDirLight.ambient", glm::vec3{ 0.0f });
 	mPhongShader->SetVectorUniform("uDirLight.diffuse", glm::vec3{ 1.0f });
 	mPhongShader->SetVectorUniform("uDirLight.specular", glm::vec3{ 1.0f });

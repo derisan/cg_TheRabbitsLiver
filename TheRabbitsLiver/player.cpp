@@ -24,6 +24,7 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 	mPrevMovement{ 0.0f },
 	mLives{ 3 },
 	mInvincibleTime{ 0.0f },
+	mIsInvincible{ false },
 	mIsDead{ false }
 {
 	std::string meshFile;
@@ -52,6 +53,8 @@ Player::Player(Gfw* gfw, PlayerType type, Gfw::Layer layer)
 void Player::UpdateActor()
 {
 	mInvincibleTime -= mGfw->dt;
+	if( mIsInvincible )
+		mInvincibleTime = 0.0f;
 
 	CheckCollisionWithTree();
 

@@ -38,9 +38,11 @@ public:
     class CameraComponent* GetCamera() const { return mCamera; }
     PlayerType GetType() const { return mType; }
     bool GetIsDead() const { return mIsDead; }
+    bool GetInvincible() const { return mIsInvincible; }
     
     // Setters
-    void SetZBorder(const glm::vec2 z) { mBorder.z = z; }
+    void SetZBorder( const glm::vec2 z ) { mBorder.z = z; }
+    void SetInvincible( bool value ) { mIsInvincible = value; }
 
 private:
     class BoxComponent* mBox;
@@ -58,6 +60,7 @@ private:
     glm::vec3 mPrevMovement;
     int mLives;
     float mInvincibleTime;
+    bool mIsInvincible;
     bool mIsDead;
     std::string mLifeImgFile;
     std::vector<class Actor*> mLifeGauges;

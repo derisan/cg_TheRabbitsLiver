@@ -39,6 +39,8 @@ private:
 	class Player* mPlayer1;
 	class Player* mPlayer2;
 
+	class Background* mBackground;
+
 	int mCurStage;
 	float mDirLightYPos;
 	bool mIsNight;
